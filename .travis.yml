@@ -1,4 +1,9 @@
 language: node_js
 node_js:
   - "node"
-test: "jest --forceExit"
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run build
+  - npm test
