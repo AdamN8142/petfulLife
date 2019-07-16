@@ -8,7 +8,7 @@ export class Home extends Component {
       <Text>This is the Home Screen</Text>
       <Button
         onPress={() => this.props.navigation.navigate('AddViewScan')}
-        title="Go to AVS page"
+        title="Enter App!"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />
