@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import { StyleSheet, ImageBackground,  Text, View, Button } from 'react-native';
+import { StyleSheet, ImageBackground, Text, View, Button } from 'react-native';
 import { BackgroundImage} from '../Components/BackgroundImage'
 import { opaqueType } from '@babel/types';
 
