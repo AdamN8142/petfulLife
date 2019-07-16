@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { BackgroundImage} from '../Components/BackgroundImage'
 
 export class Home extends Component {
   render(){
@@ -24,4 +25,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  backgroundImage: {
+    flex:1,
+    height:'100%',
+    width: '100%'
+  }
+
 });

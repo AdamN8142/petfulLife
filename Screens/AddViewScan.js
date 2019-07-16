@@ -1,10 +1,14 @@
 import React, { Component }from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, ImageBackground,  Text, View, Button } from 'react-native';
+import { BackgroundImage} from '../Components/BackgroundImage'
+import { opaqueType } from '@babel/types';
+
 
 export class AddViewScan extends Component {
   render(){
     return (
-    <View style={styles.container}>
+      <View style={styles.container}>
+      <BackgroundImage style={styles.backgroundImage} />
       <Text style={styles.header} >PetfulLife</Text>
       <View style={styles.button}>
       <Button
@@ -35,7 +39,6 @@ export class AddViewScan extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -46,11 +49,16 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'center',
     backgroundColor: "#B0E0E6",
-    borderRadius: 4
+    borderRadius: 4,
+    opacity: .8
   },
   header: {
-    fontSize: 40,
-    margin: 0,
-    color: 'black'
+    fontSize: 60,
+    color: 'white'
+  },
+  backgroundImage: {
+    resizeMode: 'cover',
+    position:'absolute'
+
   }
 });
