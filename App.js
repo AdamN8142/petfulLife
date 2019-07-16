@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { Home } from './assets/Screens/Home';
+import { AddViewScan } from './assets/Screens/AddViewScan'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hello THERE </Text>
-    </View>
-  );
+
+const AppNavigator = createStackNavigator({
+  home: Home,
+  AddViewScan: AddViewScan
+})
+
+const AppContainer = createAppContainer(AppNavigator);
+
+
+ export default class App extends Component{
+  render() {
+    return (
+
+      <AppContainer />
+  
+    )
+  };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+
