@@ -12,6 +12,7 @@ export class AddViewScan extends Component {
       <Text style={styles.header} >PetfulLife</Text>
       <View style={styles.button}>
       <Button
+        onPress={() => this.props.navigation.navigate('AddPet')}
         title="ADD A PET"
         color="white"
         accessibilityLabel="Learn more about this purple button"
