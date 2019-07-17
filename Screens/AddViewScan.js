@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import { StyleSheet, ImageBackground,  Text, View, Button } from 'react-native';
+import { StyleSheet, ImageBackground, Text, View, Button } from 'react-native';
 import { BackgroundImage} from '../Components/BackgroundImage'
 import { opaqueType } from '@babel/types';
 
@@ -12,6 +12,7 @@ export class AddViewScan extends Component {
       <Text style={styles.header} >PetfulLife</Text>
       <View style={styles.button}>
       <Button
+        onPress={() => this.props.navigation.navigate('AddPet')}
         title="ADD A PET"
         color="white"
         accessibilityLabel="Learn more about this purple button"

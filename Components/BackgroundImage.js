@@ -7,11 +7,10 @@ export class BackgroundImage extends Component {
     return(
       
       <ImageBackground
-        source={require('../Images/733ebe705b7e5390871eafaf32b1044a.jpg')}
+        source={require('../Images/byz85l2wn3w01.jpg')}
         style={styles.container}
         >
       </ImageBackground>
-     
     )
   }
 }
