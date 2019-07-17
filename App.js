@@ -5,13 +5,15 @@ import { BackgroundImage } from './Components/BackgroundImage';
 import { Home } from './Screens/Home';
 import { AddViewScan } from './Screens/AddViewScan'
 import { AddPet } from './Screens/AddPet' 
+import { ViewPets } from './Screens/ViewPets'
 
 
 const AppNavigator = createStackNavigator({
   home: Home,
   AddViewScan: AddViewScan,
   BackgroundImage: BackgroundImage,
-  AddPet: AddPet
+  AddPet: AddPet,
+  ViewPets: ViewPets
 })
 
 const AppContainer = createAppContainer(AppNavigator);
