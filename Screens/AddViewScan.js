@@ -7,30 +7,31 @@ import { opaqueType } from '@babel/types';
 export class AddViewScan extends Component {
   render(){
     return (
-      <View style={styles.container}>
+    <View style={styles.container}>
       <BackgroundImage style={styles.backgroundImage} />
       <Text style={styles.header} >PetfulLife</Text>
       <View style={styles.button}>
-      <Button
-        onPress={() => this.props.navigation.navigate('AddPet')}
-        title="ADD A PET"
-        color="white"
-        accessibilityLabel="Learn more about this purple button"
-      />
+        <Button
+          onPress={() => this.props.navigation.navigate('AddPet')}
+          title="ADD A PET"
+          color="white"
+          accessibilityLabel="Add Pet"
+        />
       </View>
       <View style={styles.button}>
-      <Button
-        title="VIEW YOUR PETS"
-        color="white"
-        accessibilityLabel="Learn more about this purple button"
-      />
+        <Button
+          title="VIEW YOUR PETS"
+          onPress={() => this.props.navigation.navigate('ViewPets')}
+          color="white"
+          accessibilityLabel="View Pet"
+        />
       </View>
       <View style={styles.button}>
-      <Button
-        title="SCAN/SEARCH A PRODUCT"
-        color="white"
-        accessibilityLabel="Learn more about this purple button"
-      />
+        <Button
+          title="SCAN/SEARCH A PRODUCT"
+          color="white"
+          accessibilityLabel="Scan and Search"
+        />
       </View>
     </View>
     )
