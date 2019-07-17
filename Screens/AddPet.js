@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import { Button, StyleSheet, TextInput, Text, View } from 'react-native';
+import { Button, StyleSheet, TextInput, Text, Picker, View } from 'react-native';
 
 
 
@@ -14,12 +14,8 @@ export class AddPet extends Component {
     } 
   }
 
-  // grabPetInfo = (idea) => {
-  //   let newIdea= this.state.text
-  //   this.setState({
-  //     concepts: [...this.state.concepts, newIdea]
-  //   })
-  // }
+
+  
 
   render(){
     console.log(this.state)
@@ -29,28 +25,33 @@ export class AddPet extends Component {
       <TextInput 
           style={styles.input}
           onChangeText={(text)=> this.setState({name: text})}
-          value={this.state.name}
+          // value={this.state.name}
         />
       <Text>Nickname</Text>
       <TextInput 
           style={styles.input}
           onChangeText={(text)=> this.setState({nickName: text})}
-          value={this.state.nickName}
+          // value={this.state.nickName}
         />
       <Text>Breed</Text>
       <TextInput 
           style={styles.input}
           onChangeText={(text)=> this.setState({breed: text})}
-          value={this.state.breed}
+          // value={this.state.breed}
         />
+        <Picker
+          selectedValue={this.state.type}
+          style={{height: 50, width: 100}}
+          onValueChange={(itemValue)=> {this.setState({type:itemValue})}}
+          >
+          <Picker.Item label="Dog" value="dog" />
+          <Picker.Item label="Cat" value="cat" />
+        </Picker>
         
-     
       <Button
         title="Submit!"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
-
-
       />
     </View>
     )
