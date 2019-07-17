@@ -11,7 +11,6 @@ import { ViewPets } from './Screens/ViewPets'
 const AppNavigator = createStackNavigator({
   home: Home,
   AddViewScan: AddViewScan,
-  BackgroundImage: BackgroundImage,
   AddPet: AddPet,
   ViewPets: ViewPets
 })
