@@ -1,6 +1,7 @@
 import React, { Component }from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { BackgroundImage} from '../Components/BackgroundImage'
+import { BackgroundImage} from '../Components/BackgroundImage';
+
 
 
 export class Home extends Component {
