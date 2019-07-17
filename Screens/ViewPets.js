@@ -59,5 +59,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 30,
   },
+  nickName: {
+    alignSelf:'center',
+    marginBottom: 5,
+  },
+  breed:  {
+    alignSelf:'center',
+  }
 
 });
