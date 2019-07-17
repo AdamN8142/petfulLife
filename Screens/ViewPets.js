@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 export class ViewPets extends Component {
   constructor() {
@@ -8,9 +8,15 @@ export class ViewPets extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>DOG NAME</Text>
-        <Text>DOG NICKJNAME</Text>
-        <Text>DOG BREED</Text>
+        <View style={styles.header}></View>
+        <Image style={styles.animal} source={require('../Images/pups.jpg')} />
+        <View style={styles.body}>
+            <Text style={styles.name}>DOG NAME</Text>
+            <Text style={styles.nickName}>DOG NICKNAME</Text>
+            <Text style={styles.breed}>DOG BREED</Text>
+          <View style={styles.bodyContent}>  
+          </View>
+          </View>
           <View>
             <Text>Puppy Chow</Text>
             <Text>5.00</Text>
@@ -18,14 +24,40 @@ export class ViewPets extends Component {
             <Text>12.24</Text>
           </View>
       </View>
+    
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  header: {
     backgroundColor: 'skyblue',
+    height: 150,
+  },
+  animal: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderColor: '#FFF',
+    marginBottom: 10, 
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:90,
+  },
+  body:{
+    marginTop:50,
+  },
+  bodyContent: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-  }
+    padding:130,
+  },
+  name:{
+    alignSelf:'center',
+    fontSize:28,
+    fontWeight: "600",
+    marginBottom: 10,
+    marginTop: 30,
+  },
+
 });
