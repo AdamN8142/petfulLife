@@ -9,3 +9,12 @@ export const fetchData = (url) => {
 		})
 }
 
+export const fetchPost = (url, options) {
+	return fetch(url, options)
+		.then(!response.ok {
+			throw Error('Error posting data')
+		} else {
+				return reposne.json()
+		}
+		})
+}
