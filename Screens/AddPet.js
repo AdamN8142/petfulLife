@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
-import { Button, StyleSheet, TextInput, Text, View } from 'react-native';
+import { Button, StyleSheet, TextInput, Text, Picker, View } from 'react-native';
+
 
 
 export class AddPet extends Component {
@@ -12,27 +13,40 @@ export class AddPet extends Component {
       breed: '',
     } 
   }
+
   render(){
+   
     return (
-    <View style={styles.container}>
-      <Text>Name</Text>
-      <TextInput 
+      <View style={styles.container}>
+        <Text>Name</Text>
+        <TextInput 
           style={styles.input}
-        />
-      <Text>Nickname</Text>
-      <TextInput 
+          onChangeText={(text)=> this.setState({name: text})}
+          />
+        <Text>Nickname</Text>
+        <TextInput 
           style={styles.input}
-        />
-      <Text>Breed</Text>
-      <TextInput 
+          onChangeText={(text)=> this.setState({nickName: text})}
+          />
+        <Text>Breed</Text>
+        <TextInput 
           style={styles.input}
+          onChangeText={(text)=> this.setState({breed: text})}
+          />
+        <Picker
+          selectedValue={this.state.type}
+          style={{height: 50, width: 100}}
+          onValueChange={(itemValue)=> {this.setState({type:itemValue})}}
+          >
+          <Picker.Item label="Dog" value="dog" />
+          <Picker.Item label="Cat" value="cat" />
+        </Picker>
+        <Button
+          title="Submit!"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
         />
-      <Button
-        title="Submit!"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
-    </View>
+      </View>
     )
   }
 }
@@ -51,5 +65,4 @@ export class AddPet extends Component {
       borderWidth: 2,
       marginBottom: 20
     }
-  
   });

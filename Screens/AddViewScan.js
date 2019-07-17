@@ -2,6 +2,8 @@ import React, { Component }from 'react';
 import { StyleSheet, ImageBackground, Text, View, Button } from 'react-native';
 import { BackgroundImage} from '../Components/BackgroundImage'
 import { opaqueType } from '@babel/types';
+import { BarcodeScanner } from '../Components/BarcodeScanner'
+ 
 
 
 export class AddViewScan extends Component {
@@ -29,6 +31,7 @@ export class AddViewScan extends Component {
       <View style={styles.button}>
         <Button
           title="SCAN/SEARCH A PRODUCT"
+          onPress={() => this.props.navigation.navigate('BarcodeScanner')}
           color="white"
           accessibilityLabel="Scan and Search"
         />
