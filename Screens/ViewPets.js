@@ -15,11 +15,15 @@ export class ViewPets extends Component {
             <Text style={styles.nickName}>GOOD BOY</Text>
             <Text style={styles.breed}>Golden Retriever</Text>
           <View style={styles.product}>
+          <View>
           <Image style={styles.picture} source={require('../Images/dogFood.png')}/>
+          </View>
+          <View>
             <Text style={styles.productName}>Puppy Chow</Text>
-            <Text>5.00</Text>
-            <Text>Good Boy Toy</Text>
-            <Text>12.24</Text>
+            <Text style={styles.desriptions}>5.00</Text>
+            <Text style={styles.desriptions}>Good Boy Toy</Text>
+            <Text style={styles.desriptions}>12.24</Text>
+          </View>
           </View>
         </View>
       </View>
@@ -74,17 +78,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 300,
     borderRadius: 3,
-    padding: 10
+    padding: 10,
   },
   picture: {
     width: 100,
     height: 120,
-    borderRadius: 2
+    borderRadius: 2,
   },
   productName: {
     alignSelf:'center',
     fontSize:20,
     fontWeight: "600",
-
+    marginLeft: 50,
+    zIndex: 1
+  },
+  desriptions: {
+    alignSelf:'center',
+    fontSize:15,
   }
 });
