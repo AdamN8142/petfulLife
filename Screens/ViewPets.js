@@ -15,7 +15,8 @@ export class ViewPets extends Component {
             <Text style={styles.nickName}>GOOD BOY</Text>
             <Text style={styles.breed}>Golden Retriever</Text>
           <View style={styles.product}>
-            <Text>Puppy Chow</Text>
+          <Image style={styles.picture} source={require('../Images/dogFood.png')}/>
+            <Text style={styles.productName}>Puppy Chow</Text>
             <Text>5.00</Text>
             <Text>Good Boy Toy</Text>
             <Text>12.24</Text>
@@ -69,7 +70,21 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     borderColor: 'black',
     borderWidth: 1,
-    height: 70,
-    marginTop: 20
+    height: 200,
+    marginTop: 20,
+    width: 300,
+    borderRadius: 3,
+    padding: 10
+  },
+  picture: {
+    width: 100,
+    height: 120,
+    borderRadius: 2
+  },
+  productName: {
+    alignSelf:'center',
+    fontSize:20,
+    fontWeight: "600",
+
   }
 });
