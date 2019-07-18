@@ -34,7 +34,7 @@ export class ViewPets extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: 'skyblue',
+    backgroundColor: '#1EB080',
     height: 150,
   },
   animal: {
@@ -73,13 +73,14 @@ const styles = StyleSheet.create({
   product: {
     alignSelf:'center',
     borderColor: 'black',
+    backgroundColor: '#CCDBD6',
     borderWidth: 1,
     height: 200,
     marginTop: 35,
     width: 300,
     borderRadius: 3,
     padding: 10,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   picture: {
     width: 100,
