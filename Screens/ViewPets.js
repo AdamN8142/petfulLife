@@ -11,18 +11,16 @@ export class ViewPets extends Component {
         <View style={styles.header}></View>
         <Image style={styles.animal} source={require('../Images/pups.jpg')} />
         <View style={styles.body}>
-            <Text style={styles.name}>DOG NAME</Text>
-            <Text style={styles.nickName}>DOG NICKNAME</Text>
-            <Text style={styles.breed}>DOG BREED</Text>
-          <View style={styles.bodyContent}>  
-          </View>
-          </View>
-          <View>
+            <Text style={styles.name}>SPOT</Text>
+            <Text style={styles.nickName}>GOOD BOY</Text>
+            <Text style={styles.breed}>Golden Retriever</Text>
+          <View style={styles.product}>
             <Text>Puppy Chow</Text>
             <Text>5.00</Text>
             <Text>Good Boy Toy</Text>
             <Text>12.24</Text>
           </View>
+        </View>
       </View>
     
     )
@@ -38,6 +36,7 @@ const styles = StyleSheet.create({
     width: 130,
     height: 130,
     borderRadius: 63,
+    borderWidth: 3,
     borderColor: '#FFF',
     marginBottom: 10, 
     alignSelf:'center',
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     fontSize:28,
     fontWeight: "600",
-    marginBottom: 10,
+    marginBottom: 7,
     marginTop: 30,
   },
   nickName: {
@@ -65,6 +64,12 @@ const styles = StyleSheet.create({
   },
   breed:  {
     alignSelf:'center',
+  },
+  product: {
+    alignSelf:'center',
+    borderColor: 'black',
+    borderWidth: 1,
+    height: 70,
+    marginTop: 20
   }
-
 });
