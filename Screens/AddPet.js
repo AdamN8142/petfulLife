@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { Button, StyleSheet, TextInput, Text, Picker, View } from 'react-native';
+import { fetchPost } from '../Utils/fetchCalls';
 
 
 
@@ -9,7 +10,7 @@ export class AddPet extends Component {
     this.state = {
       name: '',
       nickName: '',
-      type: '',
+      archetype: '',
       breed: '',
     } 
   }
@@ -17,7 +18,22 @@ export class AddPet extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     alert('here is the pet')
+    let newPet = this.state
+    this.preparePost(newPet)
   }
+
+  preparePost = (pet) => {
+    let url = 'http://localhost:3000/api/v1/users/1/pets';
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(pet)
+    }
+    fetchPost(url, options)
+    .then(response => response.json())
+    .then(result => console.log(result))
+  }
+    
 
   render(){
    
@@ -39,9 +55,9 @@ export class AddPet extends Component {
           onChangeText={(text)=> this.setState({breed: text})}
           />
         <Picker
-          selectedValue={this.state.type}
+          selectedValue={this.state.archetype}
           style={{height: 50, width: 100}}
-          onValueChange={(itemValue)=> {this.setState({type:itemValue})}}
+          onValueChange={(itemValue)=> {this.setState({archetype:itemValue})}}
           >
           <Picker.Item label="Dog" value="dog" />
           <Picker.Item label="Cat" value="cat" />
