@@ -14,6 +14,11 @@ export class AddPet extends Component {
     } 
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault()
+    alert('here is the pet')
+  }
+
   render(){
    
     return (
@@ -42,6 +47,7 @@ export class AddPet extends Component {
           <Picker.Item label="Cat" value="cat" />
         </Picker>
         <Button
+          onPress={this.handleSubmit}
           title="Submit!"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
