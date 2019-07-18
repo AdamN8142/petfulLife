@@ -15,10 +15,10 @@ export class ViewPets extends Component {
             <Text style={styles.nickName}>GOOD BOY</Text>
             <Text style={styles.breed}>Golden Retriever</Text>
           <View style={styles.product}>
-          <View>
+          <View style={styles.pic}>
           <Image style={styles.picture} source={require('../Images/dogFood.png')}/>
           </View>
-          <View>
+          <View style={styles.info}>
             <Text style={styles.productName}>Puppy Chow</Text>
             <Text style={styles.desriptions}>5.00</Text>
             <Text style={styles.desriptions}>Good Boy Toy</Text>
@@ -75,10 +75,11 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     height: 200,
-    marginTop: 20,
+    marginTop: 35,
     width: 300,
     borderRadius: 3,
     padding: 10,
+    flexDirection: 'row',
   },
   picture: {
     width: 100,
@@ -86,14 +87,17 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   productName: {
-    alignSelf:'center',
     fontSize:20,
     fontWeight: "600",
-    marginLeft: 50,
-    zIndex: 1
   },
   desriptions: {
-    alignSelf:'center',
     fontSize:15,
+  },
+  info: {
+    width: '50%'
+  },
+  pic: {
+    width: '50%'
+
   }
 });
