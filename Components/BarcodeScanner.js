@@ -10,6 +10,8 @@ export class BarcodeScanner extends Component {
      this.state = {
     hasCameraPermission: null,
     scanned: false,
+    data: '',
+    type: ''
     }
   }
 
@@ -19,9 +21,16 @@ export class BarcodeScanner extends Component {
 
   getPermissions = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    console.log('permissions', Permissions.CAMERA)
     this.setState({ hasCameraPermission: status === 'granted' });
   };
+
+  handleCodeScanned = ({ type, data }) => {
+    this.setState({ scanned: true, data, type });
+    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    
+  };
+
+  //post to backend ?
 
   render() {
     console.log('this is the state', this.state)
@@ -51,12 +60,6 @@ export class BarcodeScanner extends Component {
     );
   }
 
-  handleCodeScanned = ({ type, data }) => {
-    this.setState({ scanned: true });
-    console.log('here is the type', type)
-    console.log('here is the data', data)
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-  };
 }
 
 
