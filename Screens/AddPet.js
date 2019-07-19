@@ -68,7 +68,7 @@ export class AddPet extends Component {
           <Button
           
           onPress={this.handleSubmit}
-          title="Submit!"
+          title="Add Pet"
           color='#fff'
           accessibilityLabel="Click to create a pet profile"
         />
