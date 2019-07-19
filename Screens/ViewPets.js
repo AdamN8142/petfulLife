@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Button, ScrollView } from 'react-native';
-import { fetchData } from '../Utils/fetchCalls';
+import { fetchData, fetchPost } from '../Utils/fetchCalls';
 
 export class ViewPets extends Component {
   constructor() {
@@ -23,12 +23,25 @@ export class ViewPets extends Component {
 
   handleDelete(id){
     console.log('id', id)
+    this.deleteFetch(id)
     let keepPets = this.state.pets.filter(pet => {
       return pet.id !== id
     })
 
     this.setState({ pets: keepPets });
     console.log('new state', this.state)
+  }
+
+  deleteFetch = (id) => {
+    let url =  `http://localhost:3000/api/v1/users/1/pets/${id}`
+    const options =  {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetchPost(url, options)
+    .then(response => console.log(response))
   }
 
   makePetProfiles = () => {
