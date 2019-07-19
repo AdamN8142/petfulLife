@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, ScrollView } from 'react-native';
 import { fetchData } from '../Utils/fetchCalls';
 
 export class ViewPets extends Component {
   constructor() {
     super();
     this.state = {
-      pets: []
+      pets: [],
+      pet: {}
     }
   }
 
@@ -21,8 +22,9 @@ export class ViewPets extends Component {
     this.setState({ pets })
   }
 
-  handleDelete = (e, pet) => {
-    console.log('target', e.target)
+  handleDelete = (pet) => {
+    console.log('the state', this.state)
+    console.log('id', pet)
   }
 
   makePetProfiles = () => {
@@ -36,14 +38,16 @@ export class ViewPets extends Component {
             <View>
               <Text style={styles.nickName}>{pet.nickname}</Text>
               <Text style={styles.breed}>{pet.breed}</Text>
-            <Button style={styles.button} key={pet.id}
+            <Button style={styles.button} data={pet.id}
               onPress={() => this.props.navigation.navigate('ViewProducts')}
               title="View Products!" />
-            <Button style={styles.delete} 
+            <Button 
+              data={pet.id}
+              style={styles.delete} 
               title="Delete Pet Profile" 
-              onPress={this.handleDelete} />
+              />
             </View>
-          </View>    
+          </View>   
         )      
     })
       
@@ -52,9 +56,11 @@ export class ViewPets extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.makePetProfiles()}
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          {this.makePetProfiles()}
+        </View>
+      </ScrollView>
     )
   }
 }

@@ -33,7 +33,6 @@ export class AddPet extends Component {
     .then(response => console.log('in addPet', response))
   }
     
-
   render(){
    
     return (
