@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import { fetchData } from '../Utils/fetchCalls';
+import { StyleSheet, Text, View, Image, Button, ScrollView } from 'react-native';
+import { fetchData, fetchPost } from '../Utils/fetchCalls';
 
 export class ViewPets extends Component {
   constructor() {
@@ -21,8 +21,25 @@ export class ViewPets extends Component {
     this.setState({ pets })
   }
 
-  handleDelete = (e, pet) => {
-    console.log('target', e.target)
+  handleDelete(id){
+    this.deleteFetch(id)
+    let keepPets = this.state.pets.filter(pet => {
+      return pet.id !== id
+    })
+
+    this.setState({ pets: keepPets });
+  }
+
+  deleteFetch = (id) => {
+    let url =  `http://localhost:3000/api/v1/users/1/pets/${id}`
+    const options =  {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetchPost(url, options)
+    .then(response => console.log(response))
   }
 
   makePetProfiles = () => {
@@ -36,14 +53,17 @@ export class ViewPets extends Component {
             <View>
               <Text style={styles.nickName}>{pet.nickname}</Text>
               <Text style={styles.breed}>{pet.breed}</Text>
-            <Button style={styles.button} key={pet.id}
+            <Button style={styles.button} data={pet.id}
               onPress={() => this.props.navigation.navigate('ViewProducts')}
               title="View Products!" />
-            <Button style={styles.delete} 
+            <Button 
+              data={pet.id}
+              style={styles.delete} 
               title="Delete Pet Profile" 
-              onPress={this.handleDelete} />
+              onPress={this.handleDelete.bind(this, pet.id)}
+              />
             </View>
-          </View>    
+          </View>   
         )      
     })
       
@@ -52,9 +72,11 @@ export class ViewPets extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.makePetProfiles()}
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          {this.makePetProfiles()}
+        </View>
+      </ScrollView>
     )
   }
 }
