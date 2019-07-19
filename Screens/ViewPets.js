@@ -1,41 +1,77 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { fetchData } from '../Utils/fetchCalls';
 
 export class ViewPets extends Component {
   constructor() {
     super();
+    this.state = {
+      pets: []
+    }
   }
+
+  componentDidMount = () => {
+    let url = 'http://localhost:3000/api/v1/users/1/pets' 
+    fetchData(url)
+    .then(response => this.setPets(response.data.attributes.pets))
+    .catch(error => console.log(error))
+  }
+
+  setPets = (pets) => { 
+    this.setState({ pets })
+  }
+
+  handleDelete = (e, pet) => {
+    console.log('target', e.target)
+  }
+
+  makePetProfiles = () => {
+    if (this.state.pets.length) {
+    return this.state.pets.map((pet) => {
+      return (
+          <View key={pet.id} style={styles.product}>
+            <View style={styles.header}>
+              <Text style={styles.name}>{pet.name}</Text>
+            </View>
+            <View>
+              <Text style={styles.nickName}>{pet.nickname}</Text>
+              <Text style={styles.breed}>{pet.breed}</Text>
+            <Button style={styles.button} key={pet.id}
+              onPress={() => this.props.navigation.navigate('ViewProducts')}
+              title="View Products!" />
+            <Button style={styles.delete} 
+              title="Delete Pet Profile" 
+              onPress={this.handleDelete} />
+            </View>
+          </View>    
+        )      
+    })
+      
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}></View>
-        <Image style={styles.animal} source={require('../Images/pups.jpg')} />
-        <View style={styles.body}>
-            <Text style={styles.name}>SPOT</Text>
-            <Text style={styles.nickName}>GOOD BOY</Text>
-            <Text style={styles.breed}>Golden Retriever</Text>
-          <View style={styles.product}>
-          <View style={styles.pic}>
-          <Image style={styles.picture} source={require('../Images/dogFood.png')}/>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.productName}>Puppy Chow</Text>
-            <Text style={styles.desriptions}>5.00</Text>
-            <Text style={styles.desriptions}>Good Boy Toy</Text>
-            <Text style={styles.desriptions}>12.24</Text>
-          </View>
-          </View>
-        </View>
+        {this.makePetProfiles()}
       </View>
-    
     )
   }
 }
 
 const styles = StyleSheet.create({
+  constainer: {
+    overflow: 'scroll'
+  },
   header: {
     backgroundColor: '#1EB080',
-    height: 150,
+    borderRadius: 3,
+    height: 50,
+    width: 298,
+    padding: 5
+  },
+  button: {
+
   },
   animal: {
     width: 130,
@@ -58,10 +94,8 @@ const styles = StyleSheet.create({
   },
   name:{
     alignSelf:'center',
-    fontSize:28,
+    fontSize:20,
     fontWeight: "600",
-    marginBottom: 7,
-    marginTop: 30,
   },
   nickName: {
     alignSelf:'center',
@@ -79,8 +113,7 @@ const styles = StyleSheet.create({
     marginTop: 35,
     width: 300,
     borderRadius: 3,
-    padding: 10,
-    flexDirection: 'row'
+    flexDirection: 'column'
   },
   picture: {
     width: 100,

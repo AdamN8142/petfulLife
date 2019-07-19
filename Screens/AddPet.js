@@ -1,5 +1,6 @@
 import React, { Component }from 'react';
 import { Button, StyleSheet, TextInput, Text, Picker, View } from 'react-native';
+import { fetchPost } from '../Utils/fetchCalls';
 
 
 
@@ -8,11 +9,30 @@ export class AddPet extends Component {
     super();
     this.state = {
       name: '',
-      nickName: '',
-      type: '',
+      nickname: '',
+      archetype: '',
       breed: '',
     } 
   }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    alert('here is the pet')
+    let newPet = this.state
+    this.preparePost(newPet)
+  }
+
+  preparePost = (pet) => {
+    let url = 'http://localhost:3000/api/v1/users/1/pets';
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(pet)
+    }
+    fetchPost(url, options)
+    .then(response => console.log('in addPet', response))
+  }
+    
 
   render(){
    
@@ -26,7 +46,7 @@ export class AddPet extends Component {
         <Text>Nickname</Text>
         <TextInput 
           style={styles.input}
-          onChangeText={(text)=> this.setState({nickName: text})}
+          onChangeText={(text)=> this.setState({nickname: text})}
           />
         <Text>Breed</Text>
         <TextInput 
@@ -34,14 +54,15 @@ export class AddPet extends Component {
           onChangeText={(text)=> this.setState({breed: text})}
           />
         <Picker
-          selectedValue={this.state.type}
+          selectedValue={this.state.archetype}
           style={{height: 50, width: 100}}
-          onValueChange={(itemValue)=> {this.setState({type:itemValue})}}
+          onValueChange={(itemValue)=> {this.setState({archetype:itemValue})}}
           >
           <Picker.Item label="Dog" value="dog" />
           <Picker.Item label="Cat" value="cat" />
         </Picker>
         <Button
+          onPress={this.handleSubmit}
           title="Submit!"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
