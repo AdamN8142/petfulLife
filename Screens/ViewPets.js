@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { fetchData } from '../Utils/fetchCalls';
 
 export class ViewPets extends Component {
   constructor() {
     super();
+    this.state = {
+      pets: []
+    }
   }
+
+  componentDidMount = () => {
+    let url = 'http://localhost:3000/api/v1/users/1/pets' 
+    fetchData(url)
+    .then(response => this.setPets(response.data.attributes.pets))
+    .catch(error => console.log(error))
+  }
+
+  setPets = (pets) => { 
+    this.setState({ pets })
+    
+  }
+
+  
+
   render() {
     return (
       <View style={styles.container}>
