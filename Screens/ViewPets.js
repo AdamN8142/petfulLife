@@ -22,9 +22,8 @@ export class ViewPets extends Component {
     this.setState({ pets })
   }
 
-  handleDelete = (pet) => {
-    console.log('the state', this.state)
-    console.log('id', pet)
+  handleDelete(id){
+    console.log('id', id);
   }
 
   makePetProfiles = () => {
@@ -45,6 +44,7 @@ export class ViewPets extends Component {
               data={pet.id}
               style={styles.delete} 
               title="Delete Pet Profile" 
+              onPress={this.handleDelete.bind(this, pet.id)}
               />
             </View>
           </View>   
