@@ -9,7 +9,7 @@ export class AddPet extends Component {
     super();
     this.state = {
       name: '',
-      nickName: '',
+      nickname: '',
       archetype: '',
       breed: '',
     } 
@@ -30,8 +30,7 @@ export class AddPet extends Component {
       body: JSON.stringify(pet)
     }
     fetchPost(url, options)
-    .then(response => response.json())
-    .then(result => console.log(result))
+    .then(response => console.log('in addPet', response))
   }
     
 
@@ -47,7 +46,7 @@ export class AddPet extends Component {
         <Text>Nickname</Text>
         <TextInput 
           style={styles.input}
-          onChangeText={(text)=> this.setState({nickName: text})}
+          onChangeText={(text)=> this.setState({nickname: text})}
           />
         <Text>Breed</Text>
         <TextInput 
