@@ -19,33 +19,33 @@ export class ViewPets extends Component {
 
   setPets = (pets) => { 
     this.setState({ pets })
-    
+  }
+
+  makePetProfiles = () => {
+    if (this.state.pets.length) {
+    return this.state.pets.map((pet) => {
+      console.log('here is a pet name', pet.name)
+      return (
+          <View>
+              <Text style={styles.name}>{pet.name}</Text>
+          </View>
+            
+        )
+            
+    })
+      
+    }
   }
 
   
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.header}></View>
-        <Image style={styles.animal} source={require('../Images/pups.jpg')} />
-        <View style={styles.body}>
-            <Text style={styles.name}>SPOT</Text>
-            <Text style={styles.nickName}>GOOD BOY</Text>
-            <Text style={styles.breed}>Golden Retriever</Text>
-          <View style={styles.product}>
-          <View style={styles.pic}>
-          <Image style={styles.picture} source={require('../Images/dogFood.png')}/>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.productName}>Puppy Chow</Text>
-            <Text style={styles.desriptions}>5.00</Text>
-            <Text style={styles.desriptions}>Good Boy Toy</Text>
-            <Text style={styles.desriptions}>12.24</Text>
-          </View>
-          </View>
-        </View>
+      <View>
+        {this.makePetProfiles()}
       </View>
+      
+      
     
     )
   }
