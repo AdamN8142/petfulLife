@@ -22,14 +22,12 @@ export class ViewPets extends Component {
   }
 
   handleDelete(id){
-    console.log('id', id)
     this.deleteFetch(id)
     let keepPets = this.state.pets.filter(pet => {
       return pet.id !== id
     })
 
     this.setState({ pets: keepPets });
-    console.log('new state', this.state)
   }
 
   deleteFetch = (id) => {
