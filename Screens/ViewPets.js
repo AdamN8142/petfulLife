@@ -24,10 +24,12 @@ export class ViewPets extends Component {
   makePetProfiles = () => {
     if (this.state.pets.length) {
     return this.state.pets.map((pet) => {
-      console.log('here is a pet name', pet.name)
+      console.log('here is a pet', pet)
       return (
-          <View>
+          <View key={pet.id}>
               <Text style={styles.name}>{pet.name}</Text>
+              <Text style={styles.nickName}>{pet.nickname}</Text>
+              <Text>{pet.breed}</Text>
           </View>
             
         )
