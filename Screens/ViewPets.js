@@ -21,6 +21,10 @@ export class ViewPets extends Component {
     this.setState({ pets })
   }
 
+  handleDelete = (e, pet) => {
+    console.log('target', e.target)
+  }
+
   makePetProfiles = () => {
     if (this.state.pets.length) {
     return this.state.pets.map((pet) => {
@@ -35,6 +39,9 @@ export class ViewPets extends Component {
             <Button style={styles.button} key={pet.id}
               onPress={() => this.props.navigation.navigate('ViewProducts')}
               title="View Products!" />
+            <Button style={styles.delete} 
+              title="Delete Pet Profile" 
+              onPress={this.handleDelete} />
             </View>
           </View>    
         )      
