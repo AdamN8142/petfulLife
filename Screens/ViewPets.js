@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { fetchData } from '../Utils/fetchCalls';
 
 export class ViewPets extends Component {
@@ -24,39 +24,47 @@ export class ViewPets extends Component {
   makePetProfiles = () => {
     if (this.state.pets.length) {
     return this.state.pets.map((pet) => {
-      console.log('here is a pet', pet)
       return (
-          <View key={pet.id}>
+          <View key={pet.id} style={styles.product}>
+            <View style={styles.header}>
               <Text style={styles.name}>{pet.name}</Text>
+            </View>
+            <View>
               <Text style={styles.nickName}>{pet.nickname}</Text>
-              <Text>{pet.breed}</Text>
-          </View>
-            
-        )
-            
+              <Text style={styles.breed}>{pet.breed}</Text>
+            <Button style={styles.button} key={pet.id}
+              onPress={() => this.props.navigation.navigate('ViewProducts')}
+              title="View Products!" />
+            </View>
+          </View>    
+        )      
     })
       
     }
   }
 
-  
-
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {this.makePetProfiles()}
       </View>
-      
-      
-    
     )
   }
 }
 
 const styles = StyleSheet.create({
+  constainer: {
+    overflow: 'scroll'
+  },
   header: {
     backgroundColor: '#1EB080',
-    height: 150,
+    borderRadius: 3,
+    height: 50,
+    width: 298,
+    padding: 5
+  },
+  button: {
+
   },
   animal: {
     width: 130,
@@ -79,10 +87,8 @@ const styles = StyleSheet.create({
   },
   name:{
     alignSelf:'center',
-    fontSize:28,
+    fontSize:20,
     fontWeight: "600",
-    marginBottom: 7,
-    marginTop: 30,
   },
   nickName: {
     alignSelf:'center',
@@ -100,8 +106,7 @@ const styles = StyleSheet.create({
     marginTop: 35,
     width: 300,
     borderRadius: 3,
-    padding: 10,
-    flexDirection: 'row'
+    flexDirection: 'column'
   },
   picture: {
     width: 100,
