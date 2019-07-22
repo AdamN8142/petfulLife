@@ -8,7 +8,8 @@ export class ViewProducts extends Component {
 		super(props);
 		this.state = {
 			name: 'null',
-			products: []
+			products: [],
+			error: {}
 		}
 	}
 
@@ -16,7 +17,7 @@ export class ViewProducts extends Component {
 		const {navigation} = this.props
 		const pet = navigation.getParam('pet', 'null')
 		this.setPet(pet)
-		// this.getProducts(id)
+		this.getProducts()
 	}
 
 	setPet = (pet) => {
@@ -24,28 +25,35 @@ export class ViewProducts extends Component {
 	}
 
 	getProducts = (id) => {
-		let url;
-		if (id) {
-			url = 'http://localhost:3000/api/v1/users/1/pets'
-		} else {
-			url = 'http://localhost:3000/api/v1/products'
-		}
+		// let url;
+		// if (id) {
+		// 	url = 'http://localhost:3000/api/v1/users/1/pets'
+		// } else {
+		let url = 'http://localhost:3000/api/v1/users/1/products'
+		
 		fetchData(url)
-		.then(response => console.log('view products',response))
-		.then(result => this.setProducts(result))
+		.then(response => this.setResponse(response))
 	}
 
-	setProducts = (products) => {
-		this.setState({products})
+	setResponse = (response) => {
+		if (response.error) {
+			this.setState({ error: response})
+		} else {
+			console.log('RESPOND', response)
+			this.setState({products})
+		}
+		console.log('here is error', this.state)
 	}
 
 	render() {
 		let greeting = this.state.name ? this.state.name : 'All Pet';
+		let errorMessage = this.state.error && 'You have no products saved yet'
 		return(
 			<ScrollView>
 				<View style={styles.header}>
 					<Text style={styles.greeting}>View {greeting}s Products</Text>
 				</View>
+				<Text style={styles.error}> {errorMessage} </Text>
 			</ScrollView>
 			)
 	}
@@ -64,5 +72,9 @@ const styles = StyleSheet.create({
     fontSize:20,
     fontWeight: "600",
     color: '#fff'
+	},
+	error: {
+		color: 'red',
+		alignSelf:'center',
 	}
 })

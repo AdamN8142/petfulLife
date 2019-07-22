@@ -76,14 +76,14 @@ export class ViewPets extends Component {
     return (
       <ScrollView>
         <View style={styles.container}>
-          {this.makePetProfiles()}
-        </View>
         <View style={styles.submit}>
           <Button 
             accessibilityLabel="Click to view all products"
             title="View All Products"
             color='#fff'
             onPress={() => this.props.navigation.navigate('ViewProducts')}/>
+        </View>
+          {this.makePetProfiles()}
         </View>
       </ScrollView>
     )
