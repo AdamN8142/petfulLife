@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button } from 'react-native';
 import Constants from 'expo-constants';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
+import { fetchPost } from '../Utils/fetchCalls';
 
 export class BarcodeScanner extends Component {
   constructor(){
@@ -27,13 +28,19 @@ export class BarcodeScanner extends Component {
   handleCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true, data, type });
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    
+    this.postProduct( data ) 
   };
 
-  //post to backend ?
+  postProduct = (data) => {
+    let url = 'http://localhost:3000/api/v1/products'
+    let body = {
+      upc: data
+    }
+    fetchPost(url, options)
+    .then(response => console.log('barcode', response))
+  } 
 
   render() {
-    console.log('this is the state', this.state)
     const { hasCameraPermission, scanned } = this.state;
     if (hasCameraPermission === null) {
       return <Text>Requesting camera permission</Text>;

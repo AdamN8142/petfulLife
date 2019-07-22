@@ -6,6 +6,7 @@ import { Home } from './Screens/Home';
 import { AddViewScan } from './Screens/AddViewScan'
 import { AddPet } from './Screens/AddPet' 
 import { ViewPets } from './Screens/ViewPets'
+import { ViewProducts } from './Screens/ViewProducts'
 
 
 const AppNavigator = createStackNavigator({
@@ -13,7 +14,8 @@ const AppNavigator = createStackNavigator({
   AddViewScan: AddViewScan,
   AddPet: AddPet,
   ViewPets: ViewPets,
-  BarcodeScanner: BarcodeScanner
+  BarcodeScanner: BarcodeScanner,
+  ViewProducts: ViewProducts
 })
 
 const AppContainer = createAppContainer(AppNavigator);
