@@ -90,12 +90,8 @@ export class AddPet extends Component {
       backgroundColor: '#EBF0EF',
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth: 2,
-      borderColor: '#1EB080',
     },
     form: {
-     borderWidth: 10,
-      borderColor: '#1EB080',
       width: 300,
       height: 600,
       borderRadius: 10,
