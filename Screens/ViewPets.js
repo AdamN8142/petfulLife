@@ -79,14 +79,12 @@ export class ViewPets extends Component {
           {this.makePetProfiles()}
         </View>
         <View style={styles.submit}>
-        <Button 
-          accessibilityLabel="Click to view all products"
-          title="View All Products"
-          color='#fff'
-          onPress={() => this.props.navigation.navigate('ViewProducts')}/>
+          <Button 
+            accessibilityLabel="Click to view all products"
+            title="View All Products"
+            color='#fff'
+            onPress={() => this.props.navigation.navigate('ViewProducts')}/>
         </View>
-        
-        
       </ScrollView>
     )
   }
@@ -129,6 +127,7 @@ const styles = StyleSheet.create({
     borderColor: '#1EB080',
     backgroundColor: '#1EB080',
     height: 40,
-    width: '70%'
+    width: '70%',
+    alignSelf:'center',
   },
 });

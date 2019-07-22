@@ -39,15 +39,12 @@ export class ViewProducts extends Component {
 		this.setState({products})
 	}
 
-
-
 	render() {
-		let greeting = this.state.name ? this.state.name : 'All Products';
+		let greeting = this.state.name ? this.state.name : 'All Pet';
 		return(
 			<ScrollView>
-				<View>
-					<Text style={styles.greeting}>{greeting}</Text>
-					<Text>Products</Text>
+				<View style={styles.header}>
+					<Text style={styles.greeting}>View {greeting}s Products</Text>
 				</View>
 			</ScrollView>
 			)
@@ -55,5 +52,17 @@ export class ViewProducts extends Component {
 }
 
 const styles = StyleSheet.create({
-
+	header: {
+		backgroundColor: '#1EB080',
+    borderRadius: 3,
+    height: 50,
+    width: '100%',
+    padding: 5
+	},
+	greeting: {
+		alignSelf:'center',
+    fontSize:20,
+    fontWeight: "600",
+    color: '#fff'
+	}
 })
