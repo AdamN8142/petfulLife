@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { fetchData } from '../Utils/fetchCalls';
 
 
@@ -44,14 +44,16 @@ export class ViewProducts extends Component {
 	render() {
 		let greeting = this.state.name ? this.state.name : 'All Products';
 		return(
-			<View>
-				<Text style={styles.greeting}>{greeting}</Text>
-				<Text>Products</Text>
-			</View>
+			<ScrollView>
+				<View>
+					<Text style={styles.greeting}>{greeting}</Text>
+					<Text>Products</Text>
+				</View>
+			</ScrollView>
 			)
 	}
 }
 
 const styles = StyleSheet.create({
-	
+
 })
