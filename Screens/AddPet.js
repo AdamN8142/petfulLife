@@ -30,7 +30,12 @@ export class AddPet extends Component {
       body: JSON.stringify(pet)
     }
     fetchPost(url, options)
-    .then(response => console.log('in addPet', response))
+    .then(response => this.navigate(response))
+ 
+  }
+
+  navigate = () => {
+    this.props.navigation.navigate('ViewPets')
   }
     
   render(){
@@ -66,7 +71,6 @@ export class AddPet extends Component {
         </View>
         <View style={styles.submit}>
           <Button
-          
           onPress={this.handleSubmit}
           title="Add Pet"
           color='#fff'

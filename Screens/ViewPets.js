@@ -54,7 +54,9 @@ export class ViewPets extends Component {
               <Text style={styles.nickName}>{pet.nickname}</Text>
               <Text style={styles.breed}>{pet.breed}</Text>
             <Button style={styles.button} data={pet.id}
-              onPress={() => this.props.navigation.navigate('ViewProducts')}
+              onPress={() => this.props.navigation.navigate('ViewProducts', {
+                 pet: pet
+              })}
               title="View Products!" />
             <Button 
               data={pet.id}
@@ -76,43 +78,27 @@ export class ViewPets extends Component {
         <View style={styles.container}>
           {this.makePetProfiles()}
         </View>
+        <View style={styles.submit}>
+        <Button 
+          accessibilityLabel="Click to view all products"
+          title="View All Products"
+          color='#fff'
+          onPress={() => this.props.navigation.navigate('ViewProducts')}/>
+        </View>
+        
+        
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  constainer: {
-    overflow: 'scroll'
-  },
   header: {
     backgroundColor: '#1EB080',
     borderRadius: 3,
     height: 50,
     width: 298,
     padding: 5
-  },
-  button: {
-
-  },
-  animal: {
-    width: 130,
-    height: 130,
-    borderRadius: 63,
-    borderWidth: 3,
-    borderColor: '#FFF',
-    marginBottom: 10, 
-    alignSelf:'center',
-    position: 'absolute',
-    marginTop:90,
-  },
-  body:{
-    marginTop:50,
-  },
-  bodyContent: {
-    flex: 1,
-    alignItems: 'center',
-    padding:130,
   },
   name:{
     alignSelf:'center',
@@ -137,23 +123,12 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     flexDirection: 'column'
   },
-  picture: {
-    width: 100,
-    height: 120,
-    borderRadius: 2,
+  submit: {
+    margin: 10,
+    borderWidth: 2,
+    borderColor: '#1EB080',
+    backgroundColor: '#1EB080',
+    height: 40,
+    width: '70%'
   },
-  productName: {
-    fontSize:20,
-    fontWeight: "600",
-  },
-  desriptions: {
-    fontSize:15,
-  },
-  info: {
-    width: '50%'
-  },
-  pic: {
-    width: '50%'
-
-  }
 });
