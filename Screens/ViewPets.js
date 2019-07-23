@@ -47,7 +47,7 @@ export class ViewPets extends Component {
     if (this.state.pets.length) {
     return this.state.pets.map((pet) => {
       return (
-          <View key={pet.id} style={styles.product}>
+          <View key={pet.id} style={styles.pet}>
             <View style={styles.header}>
               <Text style={styles.name}>{pet.name}</Text>
             </View>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   breed:  {
     alignSelf:'center',
   },
-  product: {
+  pet: {
     alignSelf:'center',
     borderColor: 'black',
     backgroundColor: '#CCDBD6',

@@ -8,7 +8,6 @@ export class ViewProducts extends Component {
 		this.state = {
 			name: 'null',
 			products: [],
-			error: {}
 		}
 	}
 
@@ -24,34 +23,40 @@ export class ViewProducts extends Component {
 	}
 
 	getProducts = (id) => {
-		// let url;
-		// if (id) {
-		// 	url = 'http://localhost:3000/api/v1/users/1/pets'
-		// } else {
 		let url = 'http://localhost:3000/api/v1/users/1/products'
-		
 		fetchData(url)
-		.then(response => this.setResponse(response))
+		.then(response => this.setProducts(response.data.attributes.products))
 	}
 
-	setResponse = (response) => {
-		if (response.error) {
-			this.setState({ error: response})
-		} else {
-			console.log('Response in view products', response)
-			this.setState({products})
-		}
+	setProducts = (products) => {
+		this.setState({products})
+		console.log('state should be good', this.state)
 	}
+
+	makeProductProfiles = () => {
+		if (this.state.products.length) {
+			return this.state.products.map(product => {
+				return <View key={product.id} style={styles.product}>
+				<Text>{product.name}</Text>
+				<Text>{product.avg_price}</Text>
+				</View>
+		})
+	}
+}
+
 
 	render() {
-		let greeting = this.state.name ? this.state.name : 'All Pet';
-		let errorMessage = this.state.error && 'You have no products saved yet'
+		let greeting = this.state.name ? `${this.state.name} products` : 'All Products'
+
 		return(
 			<ScrollView>
-				<View style={styles.header}>
-					<Text style={styles.greeting}>View {greeting}s Products</Text>
+				<View style={styles.container}>
+					<View style={styles.header}>
+						<Text>{greeting}</Text>
+					</View>
+					<View>{this.makeProductProfiles()}
+					</View>
 				</View>
-				<Text style={styles.error}> {errorMessage} </Text>	
 			</ScrollView>
 			)
 	}
