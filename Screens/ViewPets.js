@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Button, ScrollView } from 'react-native';
 import { fetchData, fetchPost } from '../Utils/fetchCalls';
+import { BackgroundProfile} from '../Components/BackgroundProfile'
 
 export class ViewPets extends Component {
   constructor() {
@@ -44,36 +45,46 @@ export class ViewPets extends Component {
 
   makePetProfiles = () => {
     if (this.state.pets.length) {
-    return this.state.pets.map((pet) => {
-      return (
-          <View key={pet.id} style={styles.product}>
+      return this.state.pets.map((pet) => {
+        return (
+          <View key={pet.id} style={styles.pet}>
             <View style={styles.header}>
               <Text style={styles.name}>{pet.name}</Text>
             </View>
             <View>
               <Text style={styles.nickName}>{pet.nickname}</Text>
               <Text style={styles.breed}>{pet.breed}</Text>
-            <Button style={styles.button} data={pet.id}
-              onPress={() => this.props.navigation.navigate('ViewProducts')}
-              title="View Products!" />
-            <Button 
-              data={pet.id}
-              style={styles.delete} 
-              title="Delete Pet Profile" 
-              onPress={this.handleDelete.bind(this, pet.id)}
-              />
+              <Button style={styles.button} data={pet.id}
+                onPress={() => this.props.navigation.navigate('ViewProducts', {
+                   pet: pet
+                })}
+                title="View Products!" />
+              <Button 
+                data={pet.id}
+                style={styles.delete} 
+                title="Delete Pet Profile" 
+                onPress={this.handleDelete.bind(this, pet.id)}
+                />
             </View>
           </View>   
         )      
-    })
-      
+      })  
     }
   }
 
   render() {
     return (
+
       <ScrollView>
         <View style={styles.container}>
+        <BackgroundProfile style={styles.backgroundImage} />
+        <View style={styles.submit}>
+          <Button 
+            accessibilityLabel="Click to view your products"
+            title="View Your Products"
+            color='#fff'
+            onPress={() => this.props.navigation.navigate('ViewProducts')}/>
+        </View>
           {this.makePetProfiles()}
         </View>
       </ScrollView>
@@ -82,37 +93,12 @@ export class ViewPets extends Component {
 }
 
 const styles = StyleSheet.create({
-  constainer: {
-    overflow: 'scroll'
-  },
   header: {
     backgroundColor: '#1EB080',
     borderRadius: 3,
     height: 50,
     width: 298,
     padding: 5
-  },
-  button: {
-
-  },
-  animal: {
-    width: 130,
-    height: 130,
-    borderRadius: 63,
-    borderWidth: 3,
-    borderColor: '#FFF',
-    marginBottom: 10, 
-    alignSelf:'center',
-    position: 'absolute',
-    marginTop:90,
-  },
-  body:{
-    marginTop:50,
-  },
-  bodyContent: {
-    flex: 1,
-    alignItems: 'center',
-    padding:130,
   },
   name:{
     alignSelf:'center',
@@ -126,7 +112,7 @@ const styles = StyleSheet.create({
   breed:  {
     alignSelf:'center',
   },
-  product: {
+  pet: {
     alignSelf:'center',
     borderColor: 'black',
     backgroundColor: '#CCDBD6',
@@ -135,25 +121,20 @@ const styles = StyleSheet.create({
     marginTop: 35,
     width: 300,
     borderRadius: 3,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    opacity: .8
   },
-  picture: {
-    width: 100,
-    height: 120,
-    borderRadius: 2,
+  submit: {
+    margin: 10,
+    borderWidth: 2,
+    borderColor: '#1EB080',
+    backgroundColor: '#1EB080',
+    height: 40,
+    width: '70%',
+    alignSelf:'center',
   },
-  productName: {
-    fontSize:20,
-    fontWeight: "600",
-  },
-  desriptions: {
-    fontSize:15,
-  },
-  info: {
-    width: '50%'
-  },
-  pic: {
-    width: '50%'
-
+  backgroundImage: {
+    resizeMode: 'cover',
+    position:'absolute'
   }
 });
