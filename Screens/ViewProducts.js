@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { fetchData } from '../Utils/fetchCalls';
+import { StyleSheet, Text, View, ScrollView, Picker, Button } from 'react-native';
+import { fetchData, fetchPost } from '../Utils/fetchCalls';
 
 export class ViewProducts extends Component {
 	constructor(props) {
@@ -8,28 +8,82 @@ export class ViewProducts extends Component {
 		this.state = {
 			name: 'null',
 			products: [],
+			pets: [],
+			error: ''
 		}
 	}
 
 	componentDidMount = (props) => {
-		const {navigation} = this.props
-		const pet = navigation.getParam('pet', 'null')
-		this.setPet(pet)
-		this.getProducts()
+		const {navigation} = this.props;
+		const pet = navigation.getParam('pet', 'null');
+		this.setPetName(pet);
+		this.getProducts();
+		this.getAllPets();
 	}
 
-	setPet = (pet) => {
+	getAllPets = () => {
+		let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets' 
+    fetchData(url)
+    .then(response => this.setState({ pets: response.data.attributes.pets}))
+    .catch(error => this.setState({error}))
+	}
+
+	setPetName = (pet) => {
 		this.setState({name: pet.name})
 	}
 
 	getProducts = (id) => {
-		let url = 'http://localhost:3000/api/v1/users/1/products'
+		let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/products'
 		fetchData(url)
 		.then(response => this.setProducts(response.data.attributes.products))
 	}
 
 	setProducts = (products) => {
-		this.setState({products})
+		products = products.reduce((uniqueProducts, currentProduct) => {
+			const uniqueIds = uniqueProducts.map(unique => {
+				return unique.id;
+			});
+
+			if(!uniqueIds.includes(currentProduct.id)) {
+				uniqueProducts.push(currentProduct);
+			}
+
+			return uniqueProducts;
+		}, [])
+		
+		this.setState({ products })
+	}
+
+	makePetPicker = (product) => {
+		if (this.state.pets) {
+			return this.state.pets.map(pet => {
+				return (
+					<Picker.Item label={pet.name} key={pet.id} value={pet.name} />
+				)
+			})
+		}
+	}
+
+	handleDelete = (id) => {
+		
+		this.deleteFetch(id)
+		let keepProducts = this.state.products.filter(product => {
+			return product.id !== id
+		})
+		this.setState({ products: keepProducts})
+	}
+
+	deleteFetch = (id) => {
+		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/products/${id}`
+
+		const options =  {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetchPost(url, options)
+    .then(response => console.log('in the products', response))
 	}
 
 	makeProductProfiles = () => {
@@ -39,15 +93,25 @@ export class ViewProducts extends Component {
 					<View key={product.id} style={styles.product}>
 						<Text>{product.name}</Text>
 						<Text>{product.avg_price}</Text>
+						<View>
+						<Picker style={{height: 2, mode: 'dropdown'}}>{this.makePetPicker(product)}</Picker>
+						<Button 
+							data={product.id} 
+							style={styles.delete}
+							title="Delete This Product"
+							onPress={this.handleDelete.bind(this, product.id)}
+							/>
+						</View>
 					</View>
 				)
 			})
+		} else {
+			return <Text>You have not scanned any products, yet</Text>
 		}
 	}
 
 	render() {
 		let greeting = this.state.name ? `${this.state.name}s products` : 'All Products'
-
 		return (
 			<ScrollView>
 				<View style={styles.container}>

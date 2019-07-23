@@ -23,7 +23,7 @@ export class AddPet extends Component {
   }
 
   preparePost = (pet) => {
-    let url = 'http://localhost:3000/api/v1/users/1/pets';
+    let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets';
     let options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ export class AddPet extends Component {
     this.props.navigation.navigate('ViewPets')
   }
     
-  render(){
+  render() {
     return (
       <View style={styles.container}>
       <BackgroundForm style={styles.backgroundImage} />
