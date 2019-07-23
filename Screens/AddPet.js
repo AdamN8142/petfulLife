@@ -1,7 +1,7 @@
 import React, { Component }from 'react';
-import { Button, StyleSheet, TextInput, Text, Picker, View } from 'react-native';
+import { Button, StyleSheet, TextInput, Text, Picker, View  } from 'react-native';
 import { fetchPost } from '../Utils/fetchCalls';
-
+import { BackgroundForm } from '../Components/BackgroundForm'
 
 
 export class AddPet extends Component {
@@ -31,7 +31,6 @@ export class AddPet extends Component {
     }
     fetchPost(url, options)
     .then(response => this.navigate(response))
- 
   }
 
   navigate = () => {
@@ -39,9 +38,9 @@ export class AddPet extends Component {
   }
     
   render(){
-   
     return (
       <View style={styles.container}>
+      <BackgroundForm style={styles.backgroundImage} />
         <View style={styles.form}>
           <Text>Name</Text>
           <TextInput 
@@ -97,7 +96,8 @@ export class AddPet extends Component {
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#FEFEFE'
+      backgroundColor: '#FEFEFE',
+      opacity: .8
     },
     input: {
       width: '70%',
@@ -116,14 +116,20 @@ export class AddPet extends Component {
       borderColor: '#1EB080',
       backgroundColor: '#1EB080',
       height: 40,
-      width: '70%'
+      width: '70%',
+      opacity: 1
     },
     lables: {
       color: '#001F15'
     },
     breed: {
       marginBottom: 0
-    }
+    },
+    backgroundImage: {
+      resizeMode: 'cover',
+      position:'absolute'
+
+  }
 
 
   });

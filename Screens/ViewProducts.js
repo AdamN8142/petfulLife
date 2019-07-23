@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { fetchData } from '../Utils/fetchCalls';
 
-
 export class ViewProducts extends Component {
 	constructor(props) {
 		super(props);
@@ -39,10 +38,9 @@ export class ViewProducts extends Component {
 		if (response.error) {
 			this.setState({ error: response})
 		} else {
-			console.log('RESPOND', response)
+			console.log('Response in view products', response)
 			this.setState({products})
 		}
-		console.log('here is error', this.state)
 	}
 
 	render() {
@@ -53,7 +51,7 @@ export class ViewProducts extends Component {
 				<View style={styles.header}>
 					<Text style={styles.greeting}>View {greeting}s Products</Text>
 				</View>
-				<Text style={styles.error}> {errorMessage} </Text>
+				<Text style={styles.error}> {errorMessage} </Text>	
 			</ScrollView>
 			)
 	}
