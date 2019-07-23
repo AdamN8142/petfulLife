@@ -71,8 +71,8 @@ export class AddPet extends Component {
         <View style={styles.submit}>
           <Button
           onPress={this.handleSubmit}
-          title="Add Pet"
-          color='#fff'
+          title="ADD PET"
+          color='white'
           accessibilityLabel="Click to create a pet profile"
         />
         </View>
@@ -83,53 +83,46 @@ export class AddPet extends Component {
   }
 }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#EBF0EF',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    form: {
-      width: 300,
-      height: 600,
-      borderRadius: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#FEFEFE',
-      opacity: .8
-    },
-    input: {
-      width: '70%',
-      height: 40,
-      borderColor: 'grey',
-      borderWidth: 2,
-      marginBottom: 20
-    },
-    picker: {
-      width: '70%',
-      height: 200,
-    },
-    submit: {
-      margin: 10,
-      borderWidth: 2,
-      borderColor: '#1EB080',
-      backgroundColor: '#1EB080',
-      height: 40,
-      width: '70%',
-      opacity: 1
-    },
-    lables: {
-      color: '#001F15'
-    },
-    breed: {
-      marginBottom: 0
-    },
-    backgroundImage: {
-      resizeMode: 'cover',
-      position:'absolute'
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#EBF0EF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  form: {
+    width: 300,
+    height: 600,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FEFEFE99',
+  },
+  input: {
+    width: '70%',
+    height: 40,
+    borderColor: 'grey',
+    borderWidth: 2,
+    marginBottom: 20,
+    borderRadius: 5,
+  },
+  picker: {
+    width: '70%',
+    height: 200,
+  },
+  submit: {
+    margin: 10,
+    backgroundColor: "#B0E0E6",
+    height: 40,
+    width: '70%',
+    borderRadius: 5,
+    opacity: .8
+  },
+  breed: {
+    marginBottom: 0
+  },
+  backgroundImage: {
+    resizeMode: 'cover',
+    position:'absolute'
   }
-
-
-  });
+});
