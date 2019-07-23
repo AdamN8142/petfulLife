@@ -30,7 +30,6 @@ export class ViewProducts extends Component {
 
 	setProducts = (products) => {
 		this.setState({products})
-		console.log('state should be good', this.state)
 	}
 
 	makeProductProfiles = () => {
@@ -46,13 +45,13 @@ export class ViewProducts extends Component {
 
 
 	render() {
-		let greeting = this.state.name ? `${this.state.name} products` : 'All Products'
+		let greeting = this.state.name ? `${this.state.name}s products` : 'All Products'
 
 		return(
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<Text>{greeting}</Text>
+						<Text style={styles.greeting}>{greeting}</Text>
 					</View>
 					<View>{this.makeProductProfiles()}
 					</View>
@@ -76,8 +75,5 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: '#fff'
 	},
-	error: {
-		color: 'red',
-		alignSelf:'center',
-	}
+
 })
