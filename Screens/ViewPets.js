@@ -80,7 +80,7 @@ export class ViewPets extends Component {
         <BackgroundProfile style={styles.backgroundImage} />
         <View style={styles.submit}>
           <Button 
-            accessibilityLabel="Click to view your products"
+            accessibilityLabel="Click for more infomration on your pets products"
             title="View Your Products"
             color='#fff'
             onPress={() => this.props.navigation.navigate('ViewProducts')}/>
