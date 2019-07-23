@@ -35,19 +35,20 @@ export class ViewProducts extends Component {
 	makeProductProfiles = () => {
 		if (this.state.products.length) {
 			return this.state.products.map(product => {
-				return <View key={product.id} style={styles.product}>
-				<Text>{product.name}</Text>
-				<Text>{product.avg_price}</Text>
-				</View>
-		})
+				return (
+					<View key={product.id} style={styles.product}>
+						<Text>{product.name}</Text>
+						<Text>{product.avg_price}</Text>
+					</View>
+				)
+			})
+		}
 	}
-}
-
 
 	render() {
 		let greeting = this.state.name ? `${this.state.name}s products` : 'All Products'
 
-		return(
+		return (
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.header}>
@@ -57,7 +58,7 @@ export class ViewProducts extends Component {
 					</View>
 				</View>
 			</ScrollView>
-			)
+		)
 	}
 }
 

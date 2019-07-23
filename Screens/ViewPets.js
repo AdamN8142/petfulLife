@@ -45,8 +45,8 @@ export class ViewPets extends Component {
 
   makePetProfiles = () => {
     if (this.state.pets.length) {
-    return this.state.pets.map((pet) => {
-      return (
+      return this.state.pets.map((pet) => {
+        return (
           <View key={pet.id} style={styles.pet}>
             <View style={styles.header}>
               <Text style={styles.name}>{pet.name}</Text>
@@ -54,22 +54,21 @@ export class ViewPets extends Component {
             <View>
               <Text style={styles.nickName}>{pet.nickname}</Text>
               <Text style={styles.breed}>{pet.breed}</Text>
-            <Button style={styles.button} data={pet.id}
-              onPress={() => this.props.navigation.navigate('ViewProducts', {
-                 pet: pet
-              })}
-              title="View Products!" />
-            <Button 
-              data={pet.id}
-              style={styles.delete} 
-              title="Delete Pet Profile" 
-              onPress={this.handleDelete.bind(this, pet.id)}
-              />
+              <Button style={styles.button} data={pet.id}
+                onPress={() => this.props.navigation.navigate('ViewProducts', {
+                   pet: pet
+                })}
+                title="View Products!" />
+              <Button 
+                data={pet.id}
+                style={styles.delete} 
+                title="Delete Pet Profile" 
+                onPress={this.handleDelete.bind(this, pet.id)}
+                />
             </View>
           </View>   
         )      
-    })
-      
+      })  
     }
   }
 
@@ -134,9 +133,8 @@ const styles = StyleSheet.create({
     width: '70%',
     alignSelf:'center',
   },
-     backgroundImage: {
-      resizeMode: 'cover',
-      position:'absolute'
-
+  backgroundImage: {
+    resizeMode: 'cover',
+    position:'absolute'
   }
 });
