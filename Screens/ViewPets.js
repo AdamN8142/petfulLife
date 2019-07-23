@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Button, ScrollView } from 'react-native';
 import { fetchData, fetchPost } from '../Utils/fetchCalls';
+import { BackgroundProfile} from '../Components/BackgroundProfile'
 
 export class ViewPets extends Component {
   constructor() {
@@ -74,12 +75,14 @@ export class ViewPets extends Component {
 
   render() {
     return (
+
       <ScrollView>
         <View style={styles.container}>
+        <BackgroundProfile style={styles.backgroundImage} />
         <View style={styles.submit}>
           <Button 
-            accessibilityLabel="Click to view all products"
-            title="View All Products"
+            accessibilityLabel="Click to view your products"
+            title="View Your Products"
             color='#fff'
             onPress={() => this.props.navigation.navigate('ViewProducts')}/>
         </View>
@@ -119,7 +122,8 @@ const styles = StyleSheet.create({
     marginTop: 35,
     width: 300,
     borderRadius: 3,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    opacity: .8
   },
   submit: {
     margin: 10,
@@ -130,4 +134,9 @@ const styles = StyleSheet.create({
     width: '70%',
     alignSelf:'center',
   },
+     backgroundImage: {
+      resizeMode: 'cover',
+      position:'absolute'
+
+  }
 });
