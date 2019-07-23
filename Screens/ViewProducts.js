@@ -55,7 +55,6 @@ export class ViewProducts extends Component {
 	}
 
 	makePetPicker = (product) => {
-		console.log('does this product have pet id', product)
 		if (this.state.pets) {
 			return this.state.pets.map(pet => {
 				return (
@@ -66,6 +65,7 @@ export class ViewProducts extends Component {
 	}
 
 	handleDelete = (id) => {
+		
 		this.deleteFetch(id)
 		let keepProducts = this.state.products.filter(product => {
 			return product.id !== id
@@ -99,7 +99,7 @@ export class ViewProducts extends Component {
 							data={product.id} 
 							style={styles.delete}
 							title="Delete This Product"
-							onPress={this.handleDelete.bind(product.id)}
+							onPress={this.handleDelete.bind(this, product.id)}
 							/>
 						</View>
 					</View>
