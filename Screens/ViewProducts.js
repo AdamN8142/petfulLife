@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Picker } from 'react-native';
-import { fetchData } from '../Utils/fetchCalls';
+import { StyleSheet, Text, View, ScrollView, Picker, Button } from 'react-native';
+import { fetchData, fetchPost } from '../Utils/fetchCalls';
 
 export class ViewProducts extends Component {
 	constructor(props) {
@@ -22,7 +22,7 @@ export class ViewProducts extends Component {
 	}
 
 	getAllPets = () => {
-		let url = 'http://localhost:3000/api/v1/users/1/pets' 
+		let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets' 
     fetchData(url)
     .then(response => this.setState({ pets: response.data.attributes.pets}))
     .catch(error => this.setState({error}))
@@ -33,13 +33,25 @@ export class ViewProducts extends Component {
 	}
 
 	getProducts = (id) => {
-		let url = 'http://localhost:3000/api/v1/users/1/products'
+		let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/products'
 		fetchData(url)
 		.then(response => this.setProducts(response.data.attributes.products))
 	}
 
 	setProducts = (products) => {
-		this.setState({products})
+		products = products.reduce((uniqueProducts, currentProduct) => {
+			const uniqueIds = uniqueProducts.map(unique => {
+				return unique.id;
+			});
+
+			if(!uniqueIds.includes(currentProduct.id)) {
+				uniqueProducts.push(currentProduct);
+			}
+
+			return uniqueProducts;
+		}, [])
+		
+		this.setState({ products })
 	}
 
 	makePetPicker = (product) => {
@@ -53,6 +65,27 @@ export class ViewProducts extends Component {
 		}
 	}
 
+	handleDelete = (id) => {
+		this.deleteFetch(id)
+		let keepProducts = this.state.products.filter(product => {
+			return product.id !== id
+		})
+		this.setState({ products: keepProducts})
+	}
+
+	deleteFetch = (id) => {
+		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/products/${id}`
+
+		const options =  {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetchPost(url, options)
+    .then(response => console.log('in the products', response))
+	}
+
 	makeProductProfiles = () => {
 		if (this.state.products.length) {
 			return this.state.products.map(product => {
@@ -62,6 +95,12 @@ export class ViewProducts extends Component {
 						<Text>{product.avg_price}</Text>
 						<View>
 						<Picker style={{height: 2, mode: 'dropdown'}}>{this.makePetPicker(product)}</Picker>
+						<Button 
+							data={product.id} 
+							style={styles.delete}
+							title="Delete This Product"
+							onPress={this.handleDelete.bind(product.id)}
+							/>
 						</View>
 					</View>
 				)
@@ -73,7 +112,6 @@ export class ViewProducts extends Component {
 
 	render() {
 		let greeting = this.state.name ? `${this.state.name}s products` : 'All Products'
-		console.log('state of pets in view products', this.state.pets)
 		return (
 			<ScrollView>
 				<View style={styles.container}>

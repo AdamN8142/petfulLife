@@ -32,10 +32,17 @@ export class BarcodeScanner extends Component {
   };
 
   postProduct = (data) => {
-    let url = 'http://localhost:3000/api/v1/products'
-    let body = {
-      upc: data
+    let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/products'
+    let post = {
+      upc: data,
+      user_id: 1
     }
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(post)
+    }
+
     fetchPost(url, options)
     .then(response => console.log('barcode', response))
   } 

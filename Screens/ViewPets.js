@@ -12,7 +12,7 @@ export class ViewPets extends Component {
   }
 
   componentDidMount = () => {
-    let url = 'http://localhost:3000/api/v1/users/1/pets' 
+    let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets' 
     fetchData(url)
     .then(response => this.setPets(response.data.attributes.pets))
     .catch(error => console.log(error))
@@ -32,7 +32,7 @@ export class ViewPets extends Component {
   }
 
   deleteFetch = (id) => {
-    let url =  `http://localhost:3000/api/v1/users/1/pets/${id}`
+    let url =  `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${id}`
     const options =  {
       method: 'DELETE',
       headers: {
@@ -40,7 +40,7 @@ export class ViewPets extends Component {
       }
     }
     fetchPost(url, options)
-    .then(response => console.log(response))
+    .then(response => console.log('in the view pets', response))
   }
 
   makePetProfiles = () => {
