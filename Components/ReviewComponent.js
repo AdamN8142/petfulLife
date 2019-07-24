@@ -18,7 +18,7 @@ export class ReviewComponent extends Component {
 	}
 
 	postReview = () => {
-		const { id } = this.props
+
 		// /api/v1/users/:user_id/pets/:pet_id/products/:product_id
 		console.log('hi', this.props)
 	}
@@ -26,6 +26,8 @@ export class ReviewComponent extends Component {
 
 
 	render(props) {
+		console.log('review', this.props)
+
 		const { id } = this.props
 		return (
 			<View style={{
