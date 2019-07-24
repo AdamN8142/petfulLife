@@ -1,5 +1,5 @@
 import React, { Component }from 'react';
-import { Button, StyleSheet, TextInput, Text, Picker, View  } from 'react-native';
+import { Button, StyleSheet, TextInput, Text, Picker, View, TouchableWithoutFeedback  } from 'react-native';
 import { fetchPost } from '../Utils/fetchCalls';
 import { BackgroundForm } from '../Components/BackgroundForm'
 
@@ -12,7 +12,7 @@ export class AddPet extends Component {
       nickname: '',
       archetype: '',
       breed: '',
-    } 
+    }
   }
 
   handleSubmit = (e) => {
@@ -36,31 +36,31 @@ export class AddPet extends Component {
   navigate = () => {
     this.props.navigation.navigate('ViewPets')
   }
-    
+
   render() {
     return (
       <View style={styles.container}>
       <BackgroundForm style={styles.backgroundImage} />
         <View style={styles.form}>
           <Text>Name</Text>
-          <TextInput 
+          <TextInput
             style={styles.input}
             onChangeText={(text)=> this.setState({name: text})}
             />
           <Text style={styles.labels}>Nickname</Text>
-          <TextInput 
+          <TextInput
             style={styles.input}
             onChangeText={(text)=> this.setState({nickname: text})}
             />
           <Text style={styles.breed}>Breed</Text>
-          <TextInput 
+          <TextInput
             style={styles.input}
             onChangeText={(text)=> this.setState({breed: text})}
             />
           <View style={styles.picker}>
           <Picker
             selectedValue={this.state.archetype}
-            style={{height: 5, mode: 'dropdown'}}
+            style={{height: 50, mode: 'dropdown'}}
             onValueChange={(itemValue)=> {this.setState({archetype:itemValue})}}
             >
             <Picker.Item label="Type" />
@@ -68,13 +68,17 @@ export class AddPet extends Component {
             <Picker.Item label="Cat" value="cat" />
           </Picker>
         </View>
+
         <View style={styles.submit}>
-          <Button
-          onPress={this.handleSubmit}
-          title="ADD PET"
-          color='white'
-          accessibilityLabel="Click to create a pet profile"
-        />
+          <TouchableWithoutFeedback
+            onPress={this.handleSubmit}
+            accessibilityLabel="Click to create a pet profile"
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>ADD PET</Text>
+            </View>
+
+          </TouchableWithoutFeedback>
         </View>
         </View>
 
@@ -112,8 +116,10 @@ const styles = StyleSheet.create({
   },
   submit: {
     margin: 10,
-    backgroundColor: "#B0E0E6",
-    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#00a1ff",
+    height: 'auto',
     width: '70%',
     borderRadius: 5,
     opacity: .8
@@ -124,5 +130,11 @@ const styles = StyleSheet.create({
   backgroundImage: {
     resizeMode: 'cover',
     position:'absolute'
+  },
+  buttonText: {
+    color: 'white',
+    padding: 20,
+    justifyContent: 'center',
+    textAlignVertical: 'center'
   }
 });

@@ -3,7 +3,7 @@ import { StyleSheet, ImageBackground, Text, View, TouchableWithoutFeedback } fro
 import { BackgroundImage} from '../Components/BackgroundImage'
 import { opaqueType } from '@babel/types';
 import { BarcodeScanner } from '../Components/BarcodeScanner'
- 
+
 
 
 export class AddViewScan extends Component {
@@ -13,36 +13,36 @@ export class AddViewScan extends Component {
       <BackgroundImage style={styles.backgroundImage} />
       <Text style={styles.header} >PetfulLife</Text>
       <View style={styles.buttonContainer}>
-        <TouchableWithoutFeedback 
+        <TouchableWithoutFeedback
           onPress={() => this.props.navigation.navigate('AddPet')}
           accessibilityLabel="Add Pet"
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>ADD A PET</Text>
           </View>
-          
+
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableWithoutFeedback 
+        <TouchableWithoutFeedback
           onPress={() => this.props.navigation.navigate('ViewPets')}
           accessibilityLabel="View your pets"
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>VIEW YOUR PETS</Text>
           </View>
-          
+
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableWithoutFeedback 
+        <TouchableWithoutFeedback
             onPress={() => this.props.navigation.navigate('BarcodeScanner')}
             accessibilityLabel="SCAN/SEARCH A PRODUCT"
         >
           <View style={styles.button}>
               <Text style={styles.buttonText}>SCAN/SEARCH A PRODUCT</Text>
           </View>
-          
+
         </TouchableWithoutFeedback>
       </View>
     </View>
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    width: '60%',
-    height: 50,
+    width: 280,
+    height: 'auto',
     alignItems: 'center',
     margin: 10,
     justifyContent: 'center',
