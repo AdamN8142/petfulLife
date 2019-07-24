@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Picker, Button } from 'react-native';
 import { PickerComponent } from '../Components/PickerComponent';
+import { ReviewComponent } from '../Components/ReviewComponent';
 import { fetchData, fetchPost } from '../Utils/fetchCalls';
 
 export class ViewProducts extends Component {
@@ -11,19 +12,14 @@ export class ViewProducts extends Component {
 			id: null,
 			products: [],
 			pets: [],
-			error: ''
+			error: '',
+			picker: true,
+			review: false
 		}
 	}
 
 	componentDidMount = (props) => {
-		
 		this.evaluateProps(props)
-		// const {navigation} = this.props;
-		// const pet = navigation.getParam('pet', 'null');
-		// this.setPetName(pet);
-		// this.getProducts();
-		// this.getAllPets();
-		
 	}
 
 	evaluateProps = (props) => {
@@ -31,37 +27,33 @@ export class ViewProducts extends Component {
 		let pet;
 		if (this.props.navigation.state.params) {
 			pet = this.props.navigation.state.params.pet
-			
 			this.setState({ name: pet.name, id: pet.id}, () => {
 				this.getPetProducts()
+				this.handleReview()
 			})
 		} else {
-
 			this.getAllPets();
 			this.getProducts();
 		}
 	}
 
 	getPetProducts = () => {
-		console.log('pet id', this.state.id)
 		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${this.state.id}/products`
 
 		fetchData(url)
-		.then(response => {
-			console.log('this is response', response) 
-			this.setState({products: response.data.attributes.products})})
+		.then(response => this.setProducts(response.data.attributes.products))
 		.catch(error => this.setState({ error }))
-		console.log('state of view products', this.state)
+	}
 
+	handleReview = () => {
+		this.setState({ review: true})
 	}
 
 	getAllPets = () => {
 		let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets' 
     fetchData(url)
     .then(response => this.setState({ pets: response.data.attributes.pets}))
-    .catch(error => this.setState({error}))
-
-
+    .catch(error => this.setState({ error }))
 	}
 
 	getProducts = () => {
@@ -84,21 +76,6 @@ export class ViewProducts extends Component {
 		}, [])
 		
 		this.setState({ products })
-	}
-
-	makePetPicker = (product) => {
-		if (this.state.pets) {
-			return this.state.pets.map(pet => {
-				return (
-					
-					<Picker.Item label={pet.name} key={pet.id} value={pet.id} />
-				)
-			})
-		}
-	}
-
-	handlePetAssign = (id, product) => {
-		
 	}
 
 	handleDelete = (id) => {
@@ -125,14 +102,19 @@ export class ViewProducts extends Component {
 	makeProductProfiles = () => {
 		if (this.state.products.length) {
 			return this.state.products.map(product => {
+				let review = <ReviewComponent product_id={product.id} pet_id={this.state.id} />
+				let picker = <PickerComponent pets={this.state.pets} id={product.id} />
+				let displayOptions = this.state.review ? review : picker
+	
 				return (
 				
 					<View key={product.id} style={styles.product}>
 						<Text>{product.name}</Text>
 						<Text>{product.avg_price}</Text>
+						{displayOptions} 
 						<View>
-						<PickerComponent pets={this.state.pets} id={product.id} />
-						<Button 
+						
+				<Button 
 							data={product.id} 
 							style={styles.delete}
 							title="Delete This Product"
