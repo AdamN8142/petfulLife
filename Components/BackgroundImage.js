@@ -5,7 +5,7 @@ import { StyleSheet, View, ImageBackground } from 'react-native';
 export class BackgroundImage extends Component {
   render() {
     return(
-      
+
       <ImageBackground
         source={require('../Images/pups.jpg')}
         style={styles.container}
