@@ -23,7 +23,6 @@ export class PickerComponent extends Component {
 
 	assignProductToPet = (value, id) => {
 		this.setState({picked: value})
-		console.log('assign to pet', value)
 		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${value}/products/${id}`
 		let options = {
 			method: "POST",
@@ -42,7 +41,7 @@ export class PickerComponent extends Component {
 				selectedValue={this.state.picked}
 				onValueChange={(value) => this.assignProductToPet(value, this.props.id)}>
 					{this.createPickerItems(this.props)}
-				<Picker.Item label="All Products" value='' />
+				<Picker.Item label="Your Product" value='' />
 			</Picker>
 		)
 	}
