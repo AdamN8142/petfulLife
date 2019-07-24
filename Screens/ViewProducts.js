@@ -57,15 +57,21 @@ export class ViewProducts extends Component {
 	makePetPicker = (product) => {
 		if (this.state.pets) {
 			return this.state.pets.map(pet => {
+				console.log('here is a pet', pet)
 				return (
-					<Picker.Item label={pet.name} key={pet.id} value={pet.name} />
+					
+					<Picker.Item label={pet.name} key={pet.id} value={pet.id} />
 				)
 			})
 		}
 	}
 
+	handlePetAssign = (id, product) => {
+		console.log('product', product)
+		console.log('reg id', id)
+	}
+
 	handleDelete = (id) => {
-		
 		this.deleteFetch(id)
 		let keepProducts = this.state.products.filter(product => {
 			return product.id !== id
@@ -94,7 +100,13 @@ export class ViewProducts extends Component {
 						<Text>{product.name}</Text>
 						<Text>{product.avg_price}</Text>
 						<View>
-						<Picker style={{height: 2, mode: 'dropdown'}}>{this.makePetPicker(product)}</Picker>
+						<Picker 
+							style={{height: 2, mode: 'dropdown'}}
+							selectedValue={"Default"}
+							onValueChange={(value) => {selectedValue = value && this.handlePetAssign(value, product)}}>{this.makePetPicker(product)}
+
+							<Picker.Item label={"Default"} value={"Default"} />
+						</Picker>
 						<Button 
 							data={product.id} 
 							style={styles.delete}
