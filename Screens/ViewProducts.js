@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Picker, Button } from 'react-native';
+import { PickerComponent } from '../Components/PickerComponent';
 import { fetchData, fetchPost } from '../Utils/fetchCalls';
 
 export class ViewProducts extends Component {
@@ -57,7 +58,6 @@ export class ViewProducts extends Component {
 	makePetPicker = (product) => {
 		if (this.state.pets) {
 			return this.state.pets.map(pet => {
-				console.log('here is a pet', pet)
 				return (
 					
 					<Picker.Item label={pet.name} key={pet.id} value={pet.id} />
@@ -93,20 +93,18 @@ export class ViewProducts extends Component {
 	}
 
 	makeProductProfiles = () => {
+		let selectedValue = 'Default'
+		console.log(selectedValue)
+		
 		if (this.state.products.length) {
 			return this.state.products.map(product => {
 				return (
+				
 					<View key={product.id} style={styles.product}>
 						<Text>{product.name}</Text>
 						<Text>{product.avg_price}</Text>
 						<View>
-						<Picker 
-							style={{height: 2, mode: 'dropdown'}}
-							selectedValue={"Default"}
-							onValueChange={(value) => {selectedValue = value && this.handlePetAssign(value, product)}}>{this.makePetPicker(product)}
-
-							<Picker.Item label={"Default"} value={"Default"} />
-						</Picker>
+						<PickerComponent pets={this.state.pets} id={product.id} />
 						<Button 
 							data={product.id} 
 							style={styles.delete}
