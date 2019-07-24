@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Picker, Button } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Picker, Button, TouchableWithoutFeedback } from 'react-native';
 import { PickerComponent } from '../Components/PickerComponent';
 import { ReviewComponent } from '../Components/ReviewComponent';
 import { fetchData, fetchPost } from '../Utils/fetchCalls';
@@ -102,9 +102,17 @@ export class ViewProducts extends Component {
 	makeProductProfiles = () => {
 		if (this.state.products.length) {
 			return this.state.products.map(product => {
-				let review = <ReviewComponent product_id={product.id} pet_id={this.state.id} />
+				
 				let picker = <PickerComponent pets={this.state.pets} id={product.id} />
-				let displayOptions = this.state.review ? review : picker
+				let viewMore = 	<View>
+	        <Button
+	          onPress={() => this.props.navigation.navigate('ProductPreferences')}
+	          accessibilityLabel="View Details On A Product"
+	          title = 'View Details'
+	        />
+     	 </View>
+
+				let displayOptions = this.state.review ? viewMore : picker
 	
 				return (
 				
@@ -132,8 +140,6 @@ export class ViewProducts extends Component {
 	render(props) {
 		
 		let greeting = 'hello'
-		//pet.name ? `${pet.name}s products` : 'All Products'
-
 		
 		return (
 			<ScrollView>
