@@ -12,7 +12,8 @@ export class AddPet extends Component {
       nickname: '',
       archetype: '',
       breed: '',
-    }
+      error: ''
+    } 
   }
 
   handleSubmit = (e) => {
@@ -31,6 +32,7 @@ export class AddPet extends Component {
     }
     fetchPost(url, options)
     .then(response => this.navigate(response))
+    .catch(error => this.setState({ error }))
   }
 
   navigate = () => {

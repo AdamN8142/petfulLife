@@ -7,7 +7,8 @@ export class ViewPets extends Component {
   constructor() {
     super();
     this.state = {
-      pets: []
+      pets: [],
+      error: ''
     }
   }
 
@@ -41,6 +42,7 @@ export class ViewPets extends Component {
     }
     fetchPost(url, options)
     .then(response => console.log('in the view pets', response))
+    .catch(error => this.setState({ error }))
   }
 
   makePetProfiles = () => {
