@@ -1,9 +1,9 @@
 import React, { Component }from 'react';
-import { StyleSheet, ImageBackground, Text, View, Button } from 'react-native';
+import { StyleSheet, ImageBackground, Text, View, TouchableWithoutFeedback } from 'react-native';
 import { BackgroundImage} from '../Components/BackgroundImage'
 import { opaqueType } from '@babel/types';
 import { BarcodeScanner } from '../Components/BarcodeScanner'
- 
+
 
 
 export class AddViewScan extends Component {
@@ -12,29 +12,38 @@ export class AddViewScan extends Component {
     <View style={styles.container}>
       <BackgroundImage style={styles.backgroundImage} />
       <Text style={styles.header} >PetfulLife</Text>
-      <View style={styles.button}>
-        <Button
+      <View style={styles.buttonContainer}>
+        <TouchableWithoutFeedback
           onPress={() => this.props.navigation.navigate('AddPet')}
-          title="ADD A PET"
-          color="white"
           accessibilityLabel="Add Pet"
-        />
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>ADD A PET</Text>
+          </View>
+
+        </TouchableWithoutFeedback>
       </View>
-      <View style={styles.button}>
-        <Button
-          title="VIEW YOUR PETS"
+      <View style={styles.buttonContainer}>
+        <TouchableWithoutFeedback
           onPress={() => this.props.navigation.navigate('ViewPets')}
-          color="white"
-          accessibilityLabel="View Pet"
-        />
+          accessibilityLabel="View your pets"
+        >
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>VIEW YOUR PETS</Text>
+          </View>
+
+        </TouchableWithoutFeedback>
       </View>
-      <View style={styles.button}>
-        <Button
-          title="SCAN/SEARCH A PRODUCT"
-          onPress={() => this.props.navigation.navigate('BarcodeScanner')}
-          color="white"
-          accessibilityLabel="Scan and Search"
-        />
+      <View style={styles.buttonContainer}>
+        <TouchableWithoutFeedback
+            onPress={() => this.props.navigation.navigate('BarcodeScanner')}
+            accessibilityLabel="SCAN/SEARCH A PRODUCT"
+        >
+          <View style={styles.button}>
+              <Text style={styles.buttonText}>SCAN/SEARCH A PRODUCT</Text>
+          </View>
+
+        </TouchableWithoutFeedback>
       </View>
     </View>
     )
@@ -48,14 +57,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    width: '80%',
-    height: 70,
+    width: 280,
+    height: 'auto',
     alignItems: 'center',
     margin: 10,
     justifyContent: 'center',
-    backgroundColor: "#B0E0E6",
+    backgroundColor: '#00a1ff',
     borderRadius: 4,
     opacity: .8
+  },
+  buttonText: {
+    color: 'white',
+    padding: 20
+  },
+  buttonContainer: {
+    margin: 20
   },
   header: {
     fontSize: 60,
