@@ -6,7 +6,8 @@ export class PickerComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			picked: ''
+			picked: '',
+			error: ''
 		}
 	}
 
@@ -21,22 +22,21 @@ export class PickerComponent extends Component {
 	}
 
 	assignProductToPet = (value, id) => {
-		console.log('id', value)
 		this.setState({picked: value})
-
+		console.log('assign to pet', value)
 		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${value}/products/${id}`
-
 		let options = {
 			method: "POST",
-			headers: { "Content-Type": "application/json"},
+			headers: { "Content-Type": "application/json"}
 		}
-
+		
 		fetchPost(url, options)
-		.then(response => console.log('picker response', response))
+		.then(response => console.log('picker response', response.status))
+		.catch(error => this.setState({ error }))
+		
 	}
 
 	render(props) {
-		console.log('here are the props', this.state)
 		return (
 			<Picker
 				selectedValue={this.state.picked}
