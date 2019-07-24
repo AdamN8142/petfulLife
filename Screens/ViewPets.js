@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { fetchData, fetchPost } from '../Utils/fetchCalls';
 import { BackgroundProfile} from '../Components/BackgroundProfile'
 
@@ -12,13 +12,13 @@ export class ViewPets extends Component {
   }
 
   componentDidMount = () => {
-    let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets' 
+    let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets'
     fetchData(url)
     .then(response => this.setPets(response.data.attributes.pets))
     .catch(error => console.log(error))
   }
 
-  setPets = (pets) => { 
+  setPets = (pets) => {
     this.setState({ pets })
   }
 
@@ -54,45 +54,67 @@ export class ViewPets extends Component {
             <View>
               <Text style={styles.nickName}>{pet.nickname}</Text>
               <Text style={styles.breed}>{pet.breed}</Text>
-              <Button style={styles.button} data={pet.id}
+              <View style={styles.buttonContainer}>
+                <TouchableWithoutFeedback
                 onPress={() => this.props.navigation.navigate('ViewProducts', {
                    pet: pet
                 })}
-                title="View Products!" />
-              <Button 
-                data={pet.id}
-                style={styles.delete} 
-                title="Delete Pet Profile" 
-                onPress={this.handleDelete.bind(this, pet.id)}
-                />
+                  accessibilityLabel="View Products"
+                >
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>View Products</Text>
+                  </View>
+
+                </TouchableWithoutFeedback>
+              </View>
+
+              <View style={styles.buttonContainer}>
+                <TouchableWithoutFeedback
+                  data={pet.id}
+                  onPress={this.handleDelete.bind(this, pet.id)}
+                  accessibilityLabel="Delete Pet"
+                >
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Delete Pet Profile</Text>
+                  </View>
+
+                </TouchableWithoutFeedback>
+              </View>
             </View>
-          </View>   
-        )      
-      })  
+          </View>
+        )
+      })
     }
   }
 
   render() {
     return (
-
-      <ScrollView>
-        <View style={styles.container}>
-        <BackgroundProfile style={styles.backgroundImage} />
-        <View style={styles.submit}>
-          <Button 
-            accessibilityLabel="Click for more infomration on your pets products"
-            title="View Your Products"
-            color='#fff'
-            onPress={() => this.props.navigation.navigate('ViewProducts')}/>
-        </View>
+      <View style={styles.container}>
+      <BackgroundProfile style={styles.backgroundImage} />
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.buttonContainer}>
+          <TouchableWithoutFeedback
+            onPress={() => this.props.navigation.navigate('ViewProducts')}
+            accessibilityLabel="View all your products"
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>View Your Products</Text>
+            </View>
+          </TouchableWithoutFeedback>
           {this.makePetProfiles()}
         </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   header: {
     backgroundColor: '#1EB080',
     borderRadius: 3,
@@ -117,7 +139,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     backgroundColor: '#CCDBD6',
     borderWidth: 1,
-    height: 200,
+    height: 280,
     marginTop: 35,
     width: 300,
     borderRadius: 3,
@@ -133,6 +155,21 @@ const styles = StyleSheet.create({
     width: '70%',
     alignSelf:'center',
   },
+  button: {
+    width: 'auto',
+    height: 'auto',
+    alignItems: 'center',
+    margin: 10,
+    justifyContent: 'center',
+    backgroundColor: '#00a1ff',
+    borderRadius: 4,
+    opacity: .8
+  },
+  buttonText: {
+    color: 'white',
+    padding: 20
+  },
+
   backgroundImage: {
     resizeMode: 'cover',
     position:'absolute'

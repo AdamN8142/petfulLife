@@ -5,7 +5,7 @@ import { StyleSheet, View, ImageBackground } from 'react-native';
 export class BackgroundProfile extends Component {
   render() {
     return(
-      
+
       <ImageBackground
         source={require('../Images/CatAndDog.jpg')}
         style={styles.container}
@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
     height:'100%',
     width: '100%',
     resizeMode: 'cover',
-    position:'absolute'
+    position: 'absolute'
   }
 });
