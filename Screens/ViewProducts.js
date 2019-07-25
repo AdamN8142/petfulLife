@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, ScrollView, Picker, Button, TouchableWithoutFee
 import { PickerComponent } from '../Components/PickerComponent';
 import { ReviewComponent } from '../Components/ReviewComponent';
 import { fetchData, fetchPost } from '../Utils/fetchCalls';
+import { BackgroundProduct} from '../Components/BackgroundProduct';
+
 
 export class ViewProducts extends Component {
 	constructor(props) {
@@ -13,8 +15,8 @@ export class ViewProducts extends Component {
 			products: [],
 			pets: [],
 			error: '',
-			picker: true,
-			review: false
+			review: false,
+			greeting: ''
 		}
 	}
 
@@ -28,14 +30,19 @@ export class ViewProducts extends Component {
 		let pet;
 		if (this.props.navigation.state.params) {
 			pet = this.props.navigation.state.params.pet
-			this.setState({ name: pet.name, id: pet.id}, () => {
+			this.setState({ name: pet.name, id: pet.id }, () => {
 				this.getPetProducts()
 				this.handleReview()
+				this.handleGreeting()
 			})
 		} else {
 			this.getAllPets();
 			this.getProducts();
+			this.setState({ greeting: "Your Products"})
 		}
+	}
+	handleGreeting = () => {
+		this.setState({ greeting: `${this.state.name}'s Products`})
 	}
 
 	getPetProducts = () => {
@@ -51,7 +58,7 @@ export class ViewProducts extends Component {
 	}
 
 	getAllPets = () => {
-		let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets' 
+		let url = 'http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets'
     fetchData(url)
     .then(response => this.setState({ pets: response.data.attributes.pets}))
     .catch(error => this.setState({ error }))
@@ -75,7 +82,7 @@ export class ViewProducts extends Component {
 
 			return uniqueProducts;
 		}, [])
-		
+
 		this.setState({ products })
 	}
 
@@ -103,7 +110,7 @@ export class ViewProducts extends Component {
 	makeProductProfiles = () => {
 		if (this.state.products.length) {
 			return this.state.products.map(product => {
-				
+
 				let picker = <PickerComponent pets={this.state.pets} id={product.id} />
 				let viewMore = 	<View>
 	        <Button
@@ -116,21 +123,32 @@ export class ViewProducts extends Component {
      	 </View>
 
 				let displayOptions = this.state.review ? viewMore : picker
-	
+
 				return (
-				
+
 					<View key={product.id} style={styles.product}>
-						<Text>{product.name}</Text>
-						<Text>{product.avg_price}</Text>
-						{displayOptions} 
 						<View>
-						
-				<Button 
-							data={product.id} 
-							style={styles.delete}
-							title="Delete This Product"
-							onPress={this.handleDelete.bind(this, product.id)}
-							/>
+							<Text>{product.name}</Text>
+						</View>
+						<View>
+							<Text>{product.avg_price}</Text>
+						</View>
+						<View>
+							{displayOptions}
+						</View>
+						<View>
+
+						<View style={styles.buttonContainer}>
+							<TouchableWithoutFeedback
+								data={product.id}
+								onPress={this.handleDelete.bind(this, product.id)}
+								accessibilityLabel="Deletes this product"
+							>
+								<View style={styles.button}>
+									<Text style={styles.buttonText}>Delete This Product</Text>
+								</View>
+							</TouchableWithoutFeedback>
+						</View>
 						</View>
 					</View>
 				)
@@ -141,24 +159,40 @@ export class ViewProducts extends Component {
 	}
 
 	render(props) {
-		
-		let greeting = 'hello'
-		
+		console.log(this.makeProductProfiles());
 		return (
-			<ScrollView>
-				<View style={styles.container}>
-					<View style={styles.header}>
-						<Text style={styles.greeting}>{greeting}</Text>
-					</View>
-					<View>{this.makeProductProfiles()}
-					</View>
+			<View style={styles.container}>
+			<BackgroundProduct style={styles.backgroundImage}/>
+				<View style={styles.header}>
+					<Text style={styles.greeting}>{this.state.greeting}</Text>
 				</View>
-			</ScrollView>
+				<ScrollView style={{flex: 1}} contentContainerStyle={{ flexGrow: 1 }} >
+					<View style={styles.container}>{this.makeProductProfiles()}</View>
+				</ScrollView>
+			</View>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
+	product: {
+		alignSelf:'center',
+		borderColor: 'black',
+		backgroundColor: '#CCDBD6',
+		borderWidth: 1,
+		height: 280,
+		marginTop: 35,
+		width: 300,
+		borderRadius: 3,
+		flexDirection: 'column',
+		opacity: .8,
+		resizeMode: 'cover'
+	},
+	container: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 	header: {
 		backgroundColor: '#1EB080',
     borderRadius: 3,
@@ -170,7 +204,25 @@ const styles = StyleSheet.create({
 		alignSelf:'center',
     fontSize:20,
     fontWeight: "600",
-    color: '#fff'
+    color: '#fff',
+		height:80
 	},
-
+	backgroundImage: {
+		resizeMode: 'cover',
+		position:'absolute'
+	},
+	button: {
+		width: 'auto',
+		height: 'auto',
+		alignItems: 'center',
+		margin: 10,
+		justifyContent: 'center',
+		backgroundColor: '#00a1ff',
+		borderRadius: 4,
+		opacity: .8
+	},
+	buttonText: {
+		color: 'white',
+		padding: 20
+	},
 })
