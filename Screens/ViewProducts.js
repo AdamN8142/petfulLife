@@ -19,6 +19,7 @@ export class ViewProducts extends Component {
 	}
 
 	componentDidMount = (props) => {
+		console.log('hello this time')
 		this.evaluateProps(props)
 	}
 
@@ -106,7 +107,9 @@ export class ViewProducts extends Component {
 				let picker = <PickerComponent pets={this.state.pets} id={product.id} />
 				let viewMore = 	<View>
 	        <Button
-	          onPress={() => this.props.navigation.navigate('ProductPreferences')}
+	          onPress={() => this.props.navigation.navigate('ProductPreferences', {
+	          	product: product, pet: this.state.id
+	          })}
 	          accessibilityLabel="View Details On A Product"
 	          title = 'View Details'
 	        />

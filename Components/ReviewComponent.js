@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableWithoutFeedback, StyleSheet, Text, Switch } from 'react-native';
-import { fetchPatch } from '../Utils/fetchCalls';
+import { View, TextInput, TouchableWithoutFeedback, StyleSheet, Text, Switch, Button } from 'react-native';
+import { fetchPatch, fetchData } from '../Utils/fetchCalls';
 export class ReviewComponent extends Component {
 	constructor(props) {
 		super(props);
@@ -8,16 +8,21 @@ export class ReviewComponent extends Component {
 			review: '',
 			error: '',
 			status: '',
-			good_or_bad: 'good'
+			good_or_bad: 'good',
+			SwitchOnValueHolder :  false
 		}
 	}
 
 	handleReview = () => {
+		this.props.editNotes(this.state.review)
+
+		console.log(this.props.product_id)
 		const { review } = this.state
 		const { product_id, pet_id } = this.props
 		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${pet_id}/products/${product_id}`
+
 		let newReview = {
-			good_or_bad: 'good', 
+			good_or_bad: this.state.good_or_bad, 
 			notes: review
 		}
 		const options =  {
@@ -33,14 +38,25 @@ export class ReviewComponent extends Component {
     .catch(error => this.setState({ error }))
 	}
 
-	loveItOrHateIt = () => {
+	setValue = (value) => {
+  this.setState({ SwitchOnValueHolder: value})
+  if (this.state.SwitchOnValueHolder === true) {
+  	this.setState({ good_or_bad: 'good'})
+  } else {
+  	this.setState({ good_or_bad: 'bad'})
+  }
+ 	this.handleReview()
+}
 
-	}
+saveChanges = () => {
+	console.log('review in save', this.state.review)
+	this.props.editNotes(this.state.review)
+	this.handleReview()
+}
 
 	render(props) {
 		
-
-		const { id } = this.props
+		
 		return (
 			<View>
 			<View style={{
@@ -52,28 +68,26 @@ export class ReviewComponent extends Component {
 				multiline = {true}
        	numberOfLines = {4}
        	onChangeText={(review) => this.setState({review})}
-       	onEndEditing={() => this.handleReview()}
+       	onEndEditing={() => {this.handleReview()}}
        	value={this.state.review}
 				editable={true}
 				maxlength={40}
 			/>
-			
+
 			</View>
-			<View >
+			<View>
+			<Text>{this.state.SwitchOnValueHolder ?'Product is Liked':'Product is Disliked'}</Text>
+				 <Switch
+          onValueChange={(value) => this.setValue(value)}
+          value={this.state.SwitchOnValueHolder} />
 
-				<Switch style={{marginTop:30}}
-          onValueChange = {this.toggleSwitch}
-          value = {this.state.switchValue} />
-        <TouchableWithoutFeedback
-          onPress={() => this.loveItOrHateIt()}
-          accessibilityLabel="like or dislike this product"
-        >
-          <View >
-            <Text>Like/Dislike</Text>
-          </View>
+			</View>
+			<Button
+				onPress={ () => this.saveChanges()}
+				title= 'Save Changes' 
+				accessibilityLabel="View Details On A Product"
+			/>
 
-        </TouchableWithoutFeedback>
-      </View>
 			</View>
 		);
 	}
