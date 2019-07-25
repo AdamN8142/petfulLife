@@ -149,14 +149,19 @@ export class ViewProducts extends Component {
 			return this.state.products.map(product => {
 
 				let picker = <PickerComponent pets={this.state.pets} id={product.id} />
-				let viewMore = 	<View>
-	        <Button
-	          onPress={() => this.props.navigation.navigate('ProductPreferences', {
+				let viewMore = 	<View>      
+			<View style={styles.buttonContainer}>
+				<TouchableWithoutFeedback
+					 onPress={() => this.props.navigation.navigate('ProductPreferences', {
 	          	product: this.state.product, pickedProduct: product, pet: this.state.id, updateProduct: this.updateProduct
 	          })}
-	          accessibilityLabel="View Details On A Product"
-	          title = 'View Details'
-	        />
+					accessibilityLabel="View Details on a Product"
+				>
+					<View style={styles.button}>
+						<Text style={styles.buttonText}>View Details</Text>
+					</View>
+				</TouchableWithoutFeedback>
+			</View>
      	 </View>
 
 				let displayOptions = this.state.review ? viewMore : picker
@@ -165,10 +170,10 @@ export class ViewProducts extends Component {
 
 					<View key={product.id} style={styles.product}>
 						<View>
-							<Text>{product.name}</Text>
+							<Text style={styles.productText}>Description: {product.name}</Text>
 						</View>
 						<View>
-							<Text>{product.avg_price}</Text>
+							<Text style={styles.productText}> Online Price: {product.avg_price}</Text>
 						</View>
 						<View>
 							{displayOptions}
@@ -213,9 +218,7 @@ export class ViewProducts extends Component {
 const styles = StyleSheet.create({
 	product: {
 		alignSelf:'center',
-		borderColor: 'black',
 		backgroundColor: '#CCDBD6',
-		borderWidth: 1,
 		height: 280,
 		marginTop: 35,
 		width: 300,
@@ -223,6 +226,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		opacity: .8,
 		resizeMode: 'cover'
+	},
+	productText: {
+		margin: 10,
+		marginBottom: 20
 	},
 	container: {
 		flex: 1,
