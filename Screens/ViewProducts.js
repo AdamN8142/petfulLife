@@ -128,10 +128,10 @@ export class ViewProducts extends Component {
 
 					<View key={product.id} style={styles.product}>
 						<View>
-							<Text>{product.name}</Text>
+							<Text style={styles.productText}>Description: {product.name}</Text>
 						</View>
 						<View>
-							<Text>{product.avg_price}</Text>
+							<Text style={styles.productText}> Online Price: {product.avg_price}</Text>
 						</View>
 						<View>
 							{displayOptions}
@@ -187,6 +187,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		opacity: .8,
 		resizeMode: 'cover'
+	},
+	productText: {
+		margin: 10,
+		marginBottom: 20
 	},
 	container: {
 		flex: 1,
