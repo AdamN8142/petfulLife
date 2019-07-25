@@ -36,7 +36,6 @@ export class ReviewComponent extends Component {
 	}
 
 	setValue = (value) => {
-		console.log('what is the value right now', value)
   this.setState({ SwitchOnValueHolder: value})
   if (this.state.SwitchOnValueHolder === true) {
   	this.setState({ good_or_bad: 'good'})
@@ -47,7 +46,6 @@ export class ReviewComponent extends Component {
 }
 
 saveChanges = () => {
-	console.log(this.state.good_or_bad)
 	this.props.editNotes(this.state.review)
 	this.handleReview()
 }

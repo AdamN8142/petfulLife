@@ -21,7 +21,6 @@ export class ViewProducts extends Component {
 	}
 
 	componentDidMount = (props) => {
-		console.log('hello this time')
 		this.evaluateProps(props)
 	}
 
@@ -159,7 +158,6 @@ export class ViewProducts extends Component {
 	}
 
 	render(props) {
-		console.log(this.makeProductProfiles());
 		return (
 			<View style={styles.container}>
 			<BackgroundProduct style={styles.backgroundImage}/>
