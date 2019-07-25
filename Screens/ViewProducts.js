@@ -105,18 +105,16 @@ export class ViewProducts extends Component {
     }
     fetchPost(url, options)
     .then(response => console.log('in the products', response))
+    .catch(error => this.setState({ error }))
 	}
 
 	updateProduct = (product) => {
 		this.setState({ product })
 		this.patchTheProduct(product)
-		console.log('another console log', product)
 	}
 
 	patchTheProduct = (product) => {
 		const { id } = this.state
-		console.log('product check', product)
-		console.log('id check pet', id, 'product', product.id)
 		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${id}/products/${product.id}`
 		
 		
@@ -125,10 +123,7 @@ export class ViewProducts extends Component {
 			notes: product.notes
 		}
 
-		console.log('NEWREVIEW', newReview)
-
-		console.log('url', url)
-		const options =  {
+			const options =  {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'

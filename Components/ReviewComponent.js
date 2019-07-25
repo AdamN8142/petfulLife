@@ -21,30 +21,7 @@ export class ReviewComponent extends Component {
 		this.setState({ SwitchOnValueHolder: this.props.good})
 	}
 
-	// handleReview = () => {
-	// 	const { review } = this.state
-	// 	const { product_id, pet_id } = this.props
-	// 	let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${pet_id}/products/${product_id}`
-
-	// 	let newReview = {
-	// 		good_or_bad: this.state.good_or_bad, 
-	// 		notes: review
-	// 	}
-	// 	const options =  {
- //      method: 'PATCH',
- //      headers: {
- //        'Content-Type': 'application/json'
- //      },
- //      body: JSON.stringify(newReview)
- //    }
-
- //    fetchPatch(url, options)
- //    .then(response => this.setState( {status: response.status}) )
- //    .catch(error => this.setState({ error }))
-	// }
-
 	setValue = (value) => {
-		console.log('should this be false', this.state.good_or_bad)
 	  this.setState({ SwitchOnValueHolder: value})
 	  if (this.state.SwitchOnValueHolder === false) {
 	  	this.setState({ good_or_bad: 'bad'})
@@ -57,7 +34,6 @@ export class ReviewComponent extends Component {
 	saveChanges = () => {
 		this.props.editNotes(this.state.review)
 		this.props.setGoodOrBad(this.state.SwitchOnValueHolder, this.state.review)
-		
 	}
 
 	render(props) {	

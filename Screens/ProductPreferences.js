@@ -28,13 +28,12 @@ export class ProductPreferences extends Component {
 	}
 
 	setIds = () => {
-		const { pet, product } = this.props.navigation.state.params
-		this.setState({ product_id: product.id, pet_id: pet, product: product })
+		const { pet, pickedProduct } = this.props.navigation.state.params
+		this.setState({ product_id: pickedProduct.id, pet_id: pet, product: pickedProduct })
 
 	}
 
 	setGoodOrBad = (status, notes) => {
-		console.log('state of product', this.state.product)
 		let newProduct = {
 			  avg_price: 98.725,
   			good_or_bad: status,
@@ -45,7 +44,6 @@ export class ProductPreferences extends Component {
 		}
 
 		this.setState({ product: newProduct})
-		console.log('status', status)
 		this.setState({ good_or_bad: status})
 		this.patchGoodOrBad()
 		this.updateProduct( newProduct )
@@ -54,7 +52,6 @@ export class ProductPreferences extends Component {
 	patchGoodOrBad = () => {
 		const { product_id, pet_id, notes } = this.state
 		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${pet_id}/products/${product_id}`
-		
 		
 		let newReview = {
 			good_or_bad: 'good', 
@@ -75,15 +72,11 @@ export class ProductPreferences extends Component {
 	}
 
 	updateProduct = (product) => {
-		console.log('product in update', product)
 		this.props.navigation.state.params.updateProduct(product)
 	}
 
 	render(props) {
-		console.log('hi product', this.state.product)
-			const { pet, pickedProduct } = this.props.navigation.state.params
-			console.log('this was nothing', pickedProduct)
-			
+			const { pet, pickedProduct } = this.props.navigation.state.params			
 		return (
 			<View>
 				<Text>{pickedProduct.name}</Text>
