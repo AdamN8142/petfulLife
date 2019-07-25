@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1EB080',
     borderRadius: 3,
     height: 50,
-    width: 298,
+    width: 300,
     padding: 5
   },
   name:{
@@ -138,9 +138,7 @@ const styles = StyleSheet.create({
   },
   pet: {
     alignSelf:'center',
-    borderColor: 'black',
     backgroundColor: '#CCDBD6',
-    borderWidth: 1,
     height: 280,
     marginTop: 35,
     width: 300,
