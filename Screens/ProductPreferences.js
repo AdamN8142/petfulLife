@@ -20,7 +20,6 @@ export class ProductPreferences extends Component {
 	}
 
 	editNotes = (note) => {
-		console.log('can i figure this out in edit', note)
 		this.setState({ notes: note })
 	}
 
@@ -31,7 +30,6 @@ export class ProductPreferences extends Component {
 
 	render(props) {
 			const { pet, product } = this.props.navigation.state.params
-			console.log('notes are here', this.state.notes)
 		return (
 			<View>
 				<Text>{product.name}</Text>
@@ -40,6 +38,6 @@ export class ProductPreferences extends Component {
 				<ReviewComponent product_id={this.state.product_id} pet_id={this.state.pet_id} editNotes={this.editNotes} />
 
 			</View>
-			)
+		)
 	}
 }

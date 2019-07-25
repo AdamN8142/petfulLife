@@ -9,14 +9,11 @@ export class ReviewComponent extends Component {
 			error: '',
 			status: '',
 			good_or_bad: 'good',
-			SwitchOnValueHolder :  false
+			SwitchOnValueHolder: false
 		}
 	}
 
 	handleReview = () => {
-		this.props.editNotes(this.state.review)
-
-		console.log(this.props.product_id)
 		const { review } = this.state
 		const { product_id, pet_id } = this.props
 		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${pet_id}/products/${product_id}`
@@ -39,6 +36,7 @@ export class ReviewComponent extends Component {
 	}
 
 	setValue = (value) => {
+		console.log('what is the value right now', value)
   this.setState({ SwitchOnValueHolder: value})
   if (this.state.SwitchOnValueHolder === true) {
   	this.setState({ good_or_bad: 'good'})
@@ -49,14 +47,12 @@ export class ReviewComponent extends Component {
 }
 
 saveChanges = () => {
-	console.log('review in save', this.state.review)
+	console.log(this.state.good_or_bad)
 	this.props.editNotes(this.state.review)
 	this.handleReview()
 }
 
-	render(props) {
-		
-		
+	render(props) {	
 		return (
 			<View>
 			<View style={{
@@ -80,7 +76,6 @@ saveChanges = () => {
 				 <Switch
           onValueChange={(value) => this.setValue(value)}
           value={this.state.SwitchOnValueHolder} />
-
 			</View>
 			<Button
 				onPress={ () => this.saveChanges()}
