@@ -113,13 +113,19 @@ export class ViewProducts extends Component {
 
 				let picker = <PickerComponent pets={this.state.pets} id={product.id} />
 				let viewMore = 	<View>
-	        <Button
-	          onPress={() => this.props.navigation.navigate('ProductPreferences', {
-	          	product: product, pet: this.state.id
-	          })}
-	          accessibilityLabel="View Details On A Product"
-	          title = 'View Details'
-	        />
+	        
+			<View style={styles.buttonContainer}>
+				<TouchableWithoutFeedback
+					onPress={() => this.props.navigation.navigate('ProductPreferences', {
+						product: product, pet: this.state.id
+					})}
+					accessibilityLabel="View Details on a Product"
+				>
+					<View style={styles.button}>
+						<Text style={styles.buttonText}>View Details</Text>
+					</View>
+				</TouchableWithoutFeedback>
+			</View>
      	 </View>
 
 				let displayOptions = this.state.review ? viewMore : picker
@@ -177,9 +183,7 @@ export class ViewProducts extends Component {
 const styles = StyleSheet.create({
 	product: {
 		alignSelf:'center',
-		borderColor: 'black',
 		backgroundColor: '#CCDBD6',
-		borderWidth: 1,
 		height: 280,
 		marginTop: 35,
 		width: 300,
