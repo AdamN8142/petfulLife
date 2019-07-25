@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Picker, Button, TouchableWithoutFeedback } from 'react-native';
 import { PickerComponent } from '../Components/PickerComponent';
 import { ReviewComponent } from '../Components/ReviewComponent';
-import { fetchData, fetchPost } from '../Utils/fetchCalls';
+import { fetchData, fetchPost, fetchPatch } from '../Utils/fetchCalls';
 import { BackgroundProduct} from '../Components/BackgroundProduct';
 
 
@@ -13,6 +13,7 @@ export class ViewProducts extends Component {
 			name: '',
 			id: null,
 			products: [],
+			product: {},
 			pets: [],
 			error: '',
 			review: false,
@@ -106,6 +107,48 @@ export class ViewProducts extends Component {
     .then(response => console.log('in the products', response))
 	}
 
+	updateProduct = (product) => {
+		this.setState({ product })
+		this.patchTheProduct(product)
+		console.log('another console log', product)
+	}
+
+	patchTheProduct = (product) => {
+		const { id } = this.state
+		console.log('product check', product)
+		console.log('id check pet', id, 'product', product.id)
+		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${id}/products/${product.id}`
+		
+		
+		let newReview = {
+			good_or_bad: this.evaluateGood(product.good_or_bad), 
+			notes: product.notes
+		}
+
+		console.log('NEWREVIEW', newReview)
+
+		console.log('url', url)
+		const options =  {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newReview)
+    }
+
+    fetchPatch(url, options)
+    .then(response => this.setState( {status: response.status}) )
+    .catch(error => this.setState({ error }))
+	}
+
+	evaluateGood = (goodness) => {
+		 if (goodness === false) {
+	  	return 'bad'
+	  } else {
+	  	return 'good'
+	  }
+	}
+
 	makeProductProfiles = () => {
 		if (this.state.products.length) {
 			return this.state.products.map(product => {
@@ -114,7 +157,7 @@ export class ViewProducts extends Component {
 				let viewMore = 	<View>
 	        <Button
 	          onPress={() => this.props.navigation.navigate('ProductPreferences', {
-	          	product: product, pet: this.state.id
+	          	product: this.state.product, pickedProduct: product, pet: this.state.id, updateProduct: this.updateProduct
 	          })}
 	          accessibilityLabel="View Details On A Product"
 	          title = 'View Details'
