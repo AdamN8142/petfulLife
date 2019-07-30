@@ -29,11 +29,11 @@ PetfulLife is an app submitted as a final cross pollination project at Turing. I
  
 ## Contributors
 
-#### Front End Team:
 [Adam Niedzwiecki](https://github.com/AdamN8142)
+
 [Lauren Boyer](https://github.com/lboyer4)
 
-#### Back End Team:
 [Vincent Provenzano](https://github.com/Vjp888)
+
 [Jeremy Bennett](https://github.com/jaxjafinpapau)
 
