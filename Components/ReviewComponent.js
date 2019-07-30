@@ -8,49 +8,33 @@ export class ReviewComponent extends Component {
 			review: '',
 			error: '',
 			status: '',
-			good_or_bad: 'good',
+			good_or_bad: this.props.good,
 			SwitchOnValueHolder: false
 		}
 	}
 
-	handleReview = () => {
-		const { review } = this.state
-		const { product_id, pet_id } = this.props
-		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${pet_id}/products/${product_id}`
+	componentDidMount = (props) => {
+		this.setSwitch(props)
+	}
 
-		let newReview = {
-			good_or_bad: this.state.good_or_bad, 
-			notes: review
-		}
-		const options =  {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newReview)
-    }
-
-    fetchPatch(url, options)
-    .then(response => this.setState( {status: response.status}) )
-    .catch(error => this.setState({ error }))
+	setSwitch = () => {
+		this.setState({ SwitchOnValueHolder: this.props.good})
 	}
 
 	setValue = (value) => {
-		console.log('what is the value right now', value)
-  this.setState({ SwitchOnValueHolder: value})
-  if (this.state.SwitchOnValueHolder === true) {
-  	this.setState({ good_or_bad: 'good'})
-  } else {
-  	this.setState({ good_or_bad: 'bad'})
-  }
- 	this.handleReview()
-}
+	  this.setState({ SwitchOnValueHolder: value})
+	  if (this.state.SwitchOnValueHolder === false) {
+	  	this.setState({ good_or_bad: 'bad'})
+	  } else {
+	  	this.setState({ good_or_bad: 'good'})
+	  }
+	 	this.saveChanges();
+	}
 
-saveChanges = () => {
-	console.log(this.state.good_or_bad)
-	this.props.editNotes(this.state.review)
-	this.handleReview()
-}
+	saveChanges = () => {
+		this.props.editNotes(this.state.review)
+		this.props.setGoodOrBad(this.state.SwitchOnValueHolder, this.state.review)
+	}
 
 	render(props) {	
 		return (
@@ -64,7 +48,7 @@ saveChanges = () => {
 				multiline = {true}
        	numberOfLines = {4}
        	onChangeText={(review) => this.setState({review})}
-       	onEndEditing={() => {this.handleReview()}}
+       	onEndEditing={() => {this.saveChanges()}}
        	value={this.state.review}
 				editable={true}
 				maxlength={40}

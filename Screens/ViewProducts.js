@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Picker, Button, TouchableWithoutFeedback } from 'react-native';
 import { PickerComponent } from '../Components/PickerComponent';
 import { ReviewComponent } from '../Components/ReviewComponent';
-import { fetchData, fetchPost } from '../Utils/fetchCalls';
+import { fetchData, fetchPost, fetchPatch } from '../Utils/fetchCalls';
 import { BackgroundProduct} from '../Components/BackgroundProduct';
 
 
@@ -13,6 +13,7 @@ export class ViewProducts extends Component {
 			name: '',
 			id: null,
 			products: [],
+			product: {},
 			pets: [],
 			error: '',
 			review: false,
@@ -21,7 +22,6 @@ export class ViewProducts extends Component {
 	}
 
 	componentDidMount = (props) => {
-		console.log('hello this time')
 		this.evaluateProps(props)
 	}
 
@@ -105,6 +105,43 @@ export class ViewProducts extends Component {
     }
     fetchPost(url, options)
     .then(response => console.log('in the products', response))
+    .catch(error => this.setState({ error }))
+	}
+
+	updateProduct = (product) => {
+		this.setState({ product })
+		this.patchTheProduct(product)
+	}
+
+	patchTheProduct = (product) => {
+		const { id } = this.state
+		let url = `http://petfullifeapi-env.ye3pyyr3p9.us-east-2.elasticbeanstalk.com/api/v1/users/1/pets/${id}/products/${product.id}`
+		
+		
+		let newReview = {
+			good_or_bad: this.evaluateGood(product.good_or_bad), 
+			notes: product.notes
+		}
+
+			const options =  {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newReview)
+    }
+
+    fetchPatch(url, options)
+    .then(response => this.setState( {status: response.status}) )
+    .catch(error => this.setState({ error }))
+	}
+
+	evaluateGood = (goodness) => {
+		 if (goodness === false) {
+	  	return 'bad'
+	  } else {
+	  	return 'good'
+	  }
 	}
 
 	makeProductProfiles = () => {
@@ -112,13 +149,12 @@ export class ViewProducts extends Component {
 			return this.state.products.map(product => {
 
 				let picker = <PickerComponent pets={this.state.pets} id={product.id} />
-				let viewMore = 	<View>
-	        
+				let viewMore = 	<View>      
 			<View style={styles.buttonContainer}>
 				<TouchableWithoutFeedback
-					onPress={() => this.props.navigation.navigate('ProductPreferences', {
-						product: product, pet: this.state.id
-					})}
+					 onPress={() => this.props.navigation.navigate('ProductPreferences', {
+	          	product: this.state.product, pickedProduct: product, pet: this.state.id, updateProduct: this.updateProduct
+	          })}
 					accessibilityLabel="View Details on a Product"
 				>
 					<View style={styles.button}>
@@ -165,7 +201,6 @@ export class ViewProducts extends Component {
 	}
 
 	render(props) {
-		console.log(this.makeProductProfiles());
 		return (
 			<View style={styles.container}>
 			<BackgroundProduct style={styles.backgroundImage}/>
