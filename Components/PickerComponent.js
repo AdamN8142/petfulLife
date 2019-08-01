@@ -41,7 +41,7 @@ export class PickerComponent extends Component {
 				selectedValue={this.state.picked}
 				onValueChange={(value) => this.assignProductToPet(value, this.props.id)}>
 					{this.createPickerItems(this.props)}
-				<Picker.Item label="Your Product" value='' />
+				<Picker.Item label="Your Pets" value='' />
 			</Picker>
 		)
 	}
