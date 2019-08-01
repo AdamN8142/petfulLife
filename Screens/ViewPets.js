@@ -122,24 +122,27 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     height: 50,
     width: 300,
-    padding: 5
+    padding: 5,
   },
   name:{
     alignSelf:'center',
     fontSize:20,
     fontWeight: "600",
+    fontSize: 30
   },
   nickName: {
     alignSelf:'center',
     marginBottom: 5,
+    fontSize: 20
   },
   breed:  {
     alignSelf:'center',
+    fontSize: 20
   },
   pet: {
     alignSelf:'center',
     backgroundColor: '#CCDBD6',
-    height: 280,
+    height: 'auto',
     marginTop: 35,
     width: 300,
     borderRadius: 3,
