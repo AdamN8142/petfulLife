@@ -61,13 +61,33 @@ export class ReviewComponent extends Component {
           onValueChange={(value) => this.setValue(value)}
           value={this.state.SwitchOnValueHolder} />
 			</View>
-			<Button
-				onPress={ () => this.saveChanges()}
-				title= 'Save Changes' 
-				accessibilityLabel="View Details On A Product"
-			/>
+			<TouchableWithoutFeedback
+					onPress={() => this.saveChanges()}
+				accessibilityLabel="Save Changes to This Product"
+			>
+				<View style={styles.button}>
+					<Text style={styles.buttonText}>Save Changes</Text>
+				</View>
+			</TouchableWithoutFeedback>
 
 			</View>
 		);
 	}
 }
+const styles = StyleSheet.create({
+	button: {
+		width: 'auto',
+		height: 'auto',
+		alignItems: 'center',
+		margin: 10,
+		justifyContent: 'center',
+		backgroundColor: '#00a1ff',
+		borderRadius: 4,
+		opacity: .8,
+		marginTop: 10
+	},
+	buttonText: {
+		color: 'white',
+		padding: 20
+	}
+})
