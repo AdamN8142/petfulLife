@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
 	product: {
 		alignSelf:'center',
 		backgroundColor: '#CCDBD6',
-		height: 280,
+		height: 'auto',
 		marginTop: 35,
 		width: 300,
 		borderRadius: 3,
@@ -229,7 +229,8 @@ const styles = StyleSheet.create({
 	},
 	productText: {
 		margin: 10,
-		marginBottom: 20
+		marginBottom: 20,
+		fontSize: 20
 	},
 	container: {
 		flex: 1,
