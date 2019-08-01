@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ReviewComponent } from '../Components/ReviewComponent';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { fetchPatch } from '../Utils/fetchCalls';
+import { BackgroundProfile } from '../Components/BackgroundProfile'
 
 
 
@@ -78,13 +79,46 @@ export class ProductPreferences extends Component {
 	render(props) {
 			const { pet, pickedProduct } = this.props.navigation.state.params			
 		return (
-			<View>
-				<Text>{pickedProduct.name}</Text>
-				<Text>{pickedProduct.avg_price}</Text>
-				<Text>{pickedProduct.notes}</Text>
-				<ReviewComponent product_id={this.state.product_id} pet_id={this.state.pet_id} editNotes={this.editNotes} setGoodOrBad={this.setGoodOrBad} good={pickedProduct.good_or_bad} />
+			<View style={styles.productContainer}>
+				<BackgroundProfile style={styles.backgroundImage} />
+				<View style={styles.productCard}>
+					<Text style={styles.productText}>{pickedProduct.name}</Text>
+					<Text style={styles.productText}>{pickedProduct.avg_price}</Text>
+					<Text style={styles.productText}>{pickedProduct.notes}</Text>
+					<ReviewComponent product_id={this.state.product_id} pet_id={this.state.pet_id} editNotes={this.editNotes} setGoodOrBad={this.setGoodOrBad} good={pickedProduct.good_or_bad} />
 
+				</View>
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+
+	productText: {
+		fontSize: 20,
+
+	},
+	productContainer: {
+		height: 'auto',
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	backgroundImage: {
+		resizeMode: 'cover',
+		position: 'absolute'
+	},
+	productCard: {
+		backgroundColor: '#CCDBD6',
+		height: 'auto',
+		marginTop: 35,
+		width: 300,
+		borderRadius: 3,
+		flexDirection: 'column',
+		opacity: .8,
+		resizeMode: 'cover',
+		alignSelf: 'center',
+		padding: 5
+	}
+})
