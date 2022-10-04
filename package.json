@@ -11,7 +11,7 @@
   "dependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "expo": "^33.0.0",
+    "expo": "^46.0.14",
     "expo-barcode-scanner": "^5.0.1",
     "jest": "^24.8.0",
     "link": "^0.1.5",
